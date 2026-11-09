@@ -1,65 +1,49 @@
 {
   "_meta": {
-    "exportado": "2026-11-09T00:00:00.000Z",
+    "exportado": "2026-11-09T23:56:58.903Z",
     "version": "1.0",
-    "descripcion": "Fuente maestra de datos para Contrapunto web. Coloca este archivo en la raiz del proyecto junto a index.html. Genera una version actualizada desde el boton 'Exportar data.json' en admin.html."
+    "descripcion": "Fuente maestra de datos para Contrapunto web. Coloca este archivo en la raíz del proyecto junto a index.html."
   },
   "artistas": [
     {
       "id": "oneteik",
       "nombre": "Oneteik",
       "genero": "Urban / R&B",
-      "bio": "Fusion de R&B contemporaneo y beats urbanos de produccion propia. Oneteik captura la autenticidad de sus vivencias en letras directas y melodias pegajosas, con todo su proceso creativo respaldado por Contrapunto desde la grabacion hasta la distribucion global.",
+      "bio": "Fusión de R&B contemporáneo y beats urbanos de producción propia. Oneteik captura la autenticidad de sus vivencias en letras directas y melodías pegajosas, con todo su proceso creativo respaldado por Contrapunto desde la grabación hasta la distribución global.",
       "spotify": "https://open.spotify.com/playlist/1TTJuFxX4o76kgY2GiBSYs",
       "instagram": "https://instagram.com/contrapunto.sc",
       "imagen": "assets/artistas/artista1.jpg",
       "tag": "Proyecto Activo",
-      "year": "2025 -"
+      "year": "2025 –"
     },
     {
       "id": "omar-bueno",
       "nombre": "Omar Bueno",
       "genero": "Pop / Balada",
-      "bio": "Vocalista y compositor de baladas pop con influencias del soul clasico venezolano. Su primer EP producido en Contrapunto alcanzo colecciones editoriales en plataformas de streaming con masterizacion Dolby Atmos y estrategia de posicionamiento de lanzamiento.",
+      "bio": "Vocalista y compositor de baladas pop con influencias del soul clásico venezolano. Su primer EP producido en Contrapunto alcanzó colecciones editoriales en plataformas de streaming con masterización Dolby Atmos y estrategia de posicionamiento de lanzamiento.",
       "spotify": "https://open.spotify.com/playlist/1TTJuFxX4o76kgY2GiBSYs",
       "instagram": "https://instagram.com/contrapunto.sc",
       "imagen": "assets/artistas/artista2.jpg",
       "tag": "Lanzamiento Reciente",
-      "year": "2024 -"
+      "year": "2024 –"
     }
   ],
   "portadas": [
     {
-      "id": "cover-1",
-      "titulo": "Claroscuro EP",
-      "artista": "Oneteik",
-      "year": "2025",
-      "formato": "EP Oficial",
-      "imagen": "assets/artistas/artista1.jpg"
-    },
-    {
-      "id": "cover-2",
-      "titulo": "Vuelo Interior",
-      "artista": "Omar Bueno",
-      "year": "2024",
-      "formato": "Album",
-      "imagen": "assets/artistas/artista2.jpg"
-    },
-    {
-      "id": "cover-3",
-      "titulo": "Sesiones En Vivo Vol. 1",
-      "artista": "Contrapunto Live Sessions",
-      "year": "2025",
-      "formato": "Live Session",
-      "imagen": "assets/artistas/artista1.jpg"
-    },
-    {
-      "id": "cover-4",
-      "titulo": "Frecuencias & Espacio",
-      "artista": "Omar Bueno & Oneteik",
-      "year": "2025",
+      "id": "cover-1794254198583",
+      "titulo": "Mujer de mi Corazón",
+      "artista": "John Alvarez",
+      "year": "2026",
       "formato": "Single",
-      "imagen": "assets/artistas/artista2.jpg"
+      "imagen": "assets/portadas/Mujer de mi Corazon.jpg"
+    },
+    {
+      "id": "cover-1794254283061",
+      "titulo": "Chu Chu Wua",
+      "artista": "Payaso Dinamita",
+      "year": "2026",
+      "formato": "Single",
+      "imagen": "assets/portadas/Chu Chu Wua.png"
     }
   ],
   "testimonios": [
@@ -110,5 +94,41 @@
       "respuesta": "Puedes contactarnos directamente por WhatsApp o correo electronico para coordinar una consulta inicial sin costo. En esa reunion evaluamos tus necesidades (clinicas, educativas o comunitarias) y disenamos un programa de sesiones personalizado. Tambien atendemos solicitudes de talleres para instituciones, empresas y fundaciones."
     }
   ],
-  "textos": null
+  "textos": {
+    "heroBadge": "Sello Musical · Estudio Boutique · Asesoría 360°",
+    "heroTitle": "Donde tu visión musical encuentra calidez humana y rigor profesional.",
+    "heroSubtitle": "No somos una fábrica fría de canciones ni un algoritmo automatizado. En Contrapunto caminamos hombro a hombro contigo: protegemos tu autoría, perfeccionamos tu sonido y diseñamos estrategias de lanzamiento reales para que tu música trascienda.",
+    "heroStat1Number": "100%",
+    "heroStat1Label": "Control de Masters & Derechos",
+    "heroStat2Number": "1 a 1",
+    "heroStat2Label": "Acompañamiento empático",
+    "heroStat3Number": "360°",
+    "heroStat3Label": "Producción, Legal & Marketing",
+    "backlineTitle": "Alquiler de Backline & Equipos de Audio",
+    "backlineBadge": "Servicio en Vivo & Eventos",
+    "backlineDesc": "Equipamiento profesional de audio y amplificación para conciertos, grabaciones y eventos en vivo. Equipos probados, calibrados y listos para ofrecer un rendimiento sonoro impecable.",
+    "backlinePA": "Cobertura y fidelidad acústica para eventos en vivo",
+    "backlineAmps": "Opciones de referencia para guitarra eléctrica y bajo",
+    "backlinePedals": "Multiefectos y modeladores de alta fidelidad para guitarra",
+    "backlineMonitoring": "Sistemas inalámbricos personales de baja latencia",
+    "musicoTitle": "Musicoterapia & Proyecto Social",
+    "musicoBadge": "Impacto Humano & Salud Sonora",
+    "musicoDesc": "Creemos en el poder transformador de la frecuencia y el sonido para sanar, conectar comunidades y democratizar el acceso al arte.",
+    "musicoPillar1Title": "Sesiones Clínicas de Musicoterapia",
+    "musicoPillar1Desc": "Intervenciones guiadas por musicoterapeutas certificados para la reducción de estrés, apoyo neurológico, estimulación sensorial y regulación emocional a través de frecuencias armónicas y juego sonoro.",
+    "musicoPillar1Footer": "Sesiones individuales & grupales",
+    "musicoPillar2Title": "Talleres Comunitarios",
+    "musicoPillar2Desc": "Programas de inmersión en escuelas, comunidades y centros culturales. Facilitamos el contacto directo con instrumentos reales, apreciación musical y creación colectiva para jóvenes y niños.",
+    "musicoPillar2Footer": "Integración social y educativa",
+    "musicoPillar3Title": "Fondo Pro-Bono Contrapunto",
+    "musicoPillar3Desc": "Destinamos horas de estudio, mezcla y asesoría jurídica de forma 100% gratuita a talentos musicales en situación vulnerable o proyectos de rescate del patrimonio sonoro tradicional.",
+    "musicoPillar3Footer": "Becas anuales de producción",
+    "musicoBannerTitle": "¿Deseas consultar por sesiones clínicas o talleres para tu institución?",
+    "musicoBannerDesc": "Diseñamos programas terapéuticos personalizados para fundaciones, centros de salud, empresas y particulares.",
+    "contactPhone": "+58 424 715 9703",
+    "contactWhatsAppRaw": "584247159703",
+    "contactInstagram": "https://instagram.com/contrapunto.sc",
+    "contactInstagramUser": "@contrapunto.sc",
+    "contactEmail": "contacto@sellocontrapunto.com"
+  }
 }
