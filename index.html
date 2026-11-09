@@ -156,8 +156,10 @@
           <a href="#inicio" class="hover:text-white transition-colors duration-200 py-1">Inicio</a>
           <a href="#servicios" class="hover:text-white transition-colors duration-200 py-1">Servicios</a>
           <a href="#artistas" class="hover:text-white transition-colors duration-200 py-1">Artistas</a>
-          <a href="#portafolio" class="hover:text-white transition-colors duration-200 py-1">Portafolio Visual</a>
+          <a href="#portafolio" class="hover:text-white transition-colors duration-200 py-1">Portafolio</a>
+          <a href="#testimonios" class="hover:text-white transition-colors duration-200 py-1">Testimonios</a>
           <a href="#musicoterapia" class="hover:text-white transition-colors duration-200 py-1">Musicoterapia</a>
+          <a href="#faq" class="hover:text-white transition-colors duration-200 py-1">FAQ</a>
           <a href="#contacto" class="hover:text-white transition-colors duration-200 py-1">Contacto</a>
         </nav>
 
@@ -641,6 +643,49 @@
               <a href="https://wa.me/584247159703?text=Hola%20Contrapunto,%20quisiera%20consultar%20disponibilidad%20de%20grabaci%C3%B3n%20en%20estudio." target="_blank" rel="noopener noreferrer" class="text-sm font-semibold text-white hover:text-zinc-300 flex items-center gap-1.5 transition-colors group">
                 <span>Reservar Estudio</span>
                 <span aria-hidden="true" class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+              </a>
+            </div>
+          </div>
+
+
+          <!-- SERVICIO 5: PITCHING EDITORIAL -->
+          <div class="card-hover rounded-3xl bg-zinc-900 border border-zinc-800 p-8 sm:p-10 relative overflow-hidden flex flex-col justify-between group shadow-xl reveal-on-scroll lg:col-span-2">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <span id="pitchingBadge" class="px-3 py-1 rounded-lg bg-zinc-800 border border-zinc-700 text-white text-xs font-bold tracking-wide uppercase">
+                  Pitching Editorial
+                </span>
+                <span class="text-xs text-zinc-400 font-mono">Spotify · Apple Music · Más</span>
+              </div>
+              <h3 id="pitchingTitle" class="font-display text-2xl sm:text-3xl font-bold text-white mb-4">
+                Pitching Editorial a Playlists Oficiales
+              </h3>
+              <p id="pitchingDesc" class="text-zinc-400 text-base leading-relaxed mb-6 font-light">
+                Lleva tu música a las playlists editoriales oficiales. Te ayudamos a presentar tu lanzamiento directamente a los curadores de Spotify, Apple Music y más. Disponible tanto si distribuyes con Contrapunto como si trabajas con otra distribuidora externa. Pasa de un par de reproducciones a escalar tu audiencia global.
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8 text-xs">
+                <div class="p-3 rounded-xl bg-black border border-zinc-800 hover:border-zinc-700 transition-colors">
+                  <p class="font-bold text-white mb-1">🎵 Spotify Editorial</p>
+                  <p class="text-zinc-400">Pitch a curadores de listas editoriales oficiales de Spotify</p>
+                </div>
+                <div class="p-3 rounded-xl bg-black border border-zinc-800 hover:border-zinc-700 transition-colors">
+                  <p class="font-bold text-white mb-1">🍎 Apple Music</p>
+                  <p class="text-zinc-400">Presentación a equipos de curaduría de Apple Music New Music</p>
+                </div>
+                <div class="p-3 rounded-xl bg-black border border-zinc-800 hover:border-zinc-700 transition-colors">
+                  <p class="font-bold text-white mb-1">🌐 Distribuidora Propia</p>
+                  <p class="text-zinc-400">Disponible incluso si no distribuyes con Contrapunto</p>
+                </div>
+              </div>
+            </div>
+            <div class="pt-6 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <p class="text-xs text-zinc-400">Aumenta tu audiencia global</p>
+                <p class="text-sm font-semibold text-white">Primeros resultados en 2–4 semanas</p>
+              </div>
+              <a id="pitchingCtaBtn" href="https://wa.me/584247159703?text=Hola%20Contrapunto,%20quisiera%20solicitar%20informaci%C3%B3n%20sobre%20el%20servicio%20de%20Pitching%20Editorial." target="_blank" rel="noopener noreferrer" class="dynamic-wa-link btn-glow w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-sm bg-white text-black hover:bg-zinc-200 flex items-center justify-center gap-2 shadow-md">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                <span>Solicitar Pitching por WhatsApp</span>
               </a>
             </div>
           </div>
@@ -1198,6 +1243,52 @@
           </svg>
         </a>
 
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECCIÓN: TESTIMONIOS / PRUEBA SOCIAL                                      -->
+    <!-- ========================================================================= -->
+    <section id="testimonios" class="py-28 relative bg-zinc-950 border-t border-zinc-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 reveal-on-scroll">
+          <div>
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-semibold tracking-wider uppercase mb-3">
+              Prueba Social
+            </div>
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
+              Lo Que Dicen Nuestros Artistas
+            </h2>
+          </div>
+          <p class="text-zinc-400 max-w-md text-sm sm:text-base font-light">
+            Historias reales de artistas que confiaron en Contrapunto para llevar su música al siguiente nivel.
+          </p>
+        </div>
+        <div id="testimoniosGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Renderizado dinámico por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SECCIÓN: FAQ — PREGUNTAS FRECUENTES                                       -->
+    <!-- ========================================================================= -->
+    <section id="faq" class="py-28 relative bg-black border-t border-zinc-800">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal-on-scroll">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-semibold tracking-wider uppercase mb-3">
+            Preguntas Frecuentes
+          </div>
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-4">
+            Resolvemos Tus Dudas
+          </h2>
+          <p class="text-zinc-400 text-sm sm:text-base font-light max-w-2xl mx-auto">
+            Todo lo que necesitas saber sobre nuestros servicios, distribución, derechos y más.
+          </p>
+        </div>
+        <div id="faqContainer" class="space-y-3">
+          <!-- Renderizado dinámico por JS -->
+        </div>
       </div>
     </section>
 
@@ -2219,6 +2310,8 @@
     const STORAGE_KEY_COVERS = "contrapunto_covers";
     const STORAGE_KEY_AUTH = "contrapunto_admin_auth";
     const STORAGE_KEY_TEXTS = "contrapunto_site_texts";
+    const STORAGE_KEY_TESTIMONIOS = "contrapunto_testimonios";
+    const STORAGE_KEY_FAQ = "contrapunto_faq";
 
     function getAdminPassword() {
       return localStorage.getItem(KEY_ADMIN_PASS) || DEFAULT_ADMIN_PASS;
@@ -3165,15 +3258,348 @@
     }
 
     // Inicializar renders y textos al cargar la página
+    // Prioridad: 1) localStorage (ediciones admin), 2) data.json (fuente maestra), 3) DEFAULT_* (fallback)
+
+    // =========================================================================
+    // TESTIMONIOS — Datos por defecto, Storage, Render, CRUD
+    // =========================================================================
+    const DEFAULT_TESTIMONIOS = [
+      {
+        id: 'test-1',
+        nombre: 'Oneteik',
+        rol: 'Urban R&B / EP Claroscuro 2025',
+        texto: 'Trabajar con Contrapunto fue transformador. No solo cuidaron cada detalle sonoro de mi EP, sino que me acompañaron como personas en todo el proceso. El trato humano y su visión artística me dieron la confianza que necesitaba para lanzarme al mundo.',
+        estrellas: 5,
+        foto: 'assets/testimonios/oneteik.jpg'
+      },
+      {
+        id: 'test-2',
+        nombre: 'Omar Bueno',
+        rol: 'Pop / Balada · Álbum Vuelo Interior',
+        texto: 'Desde la primera reunión supe que estaba en las manos correctas. Mi álbum logró entrar en playlists editoriales de Spotify gracias al pitching que coordinaron. Profesionales de verdad con corazón de artista.',
+        estrellas: 5,
+        foto: 'assets/testimonios/omar.jpg'
+      },
+      {
+        id: 'test-3',
+        nombre: 'Artista Contrapunto',
+        rol: 'Proyecto en Desarrollo',
+        texto: 'El proceso de grabación y la asesoría en derechos de autor fue impecable. Siento que mis masters están bien protegidos y mi música suena exactamente como la imaginé. Recomiendo Contrapunto a cualquier artista independiente.',
+        estrellas: 5,
+        foto: 'assets/testimonios/artista3.jpg'
+      }
+    ];
+
+    const DEFAULT_FAQ = [
+      {
+        id: 'faq-1',
+        pregunta: '¿Puedo contratar el Pitching Editorial si no distribuyo mi música con Contrapunto?',
+        respuesta: 'Sí, el servicio de Pitching Editorial está disponible tanto para artistas del sello como para artistas que trabajan con otras distribuidoras. Lo único que necesitamos es que tu lanzamiento esté disponible en las plataformas de streaming antes de la fecha de pitch.'
+      },
+      {
+        id: 'faq-2',
+        pregunta: '¿Cómo funciona la protección de derechos de autor y propiedad intelectual?',
+        respuesta: 'En Contrapunto asesoramos legalmente a cada artista para el registro de sus obras ante las sociedades de gestión colectiva (SACVEN u otras). También incluimos cláusulas de propiedad intelectual en todos nuestros contratos, garantizando que el artista mantenga la titularidad de sus masters y derechos de autor.'
+      },
+      {
+        id: 'faq-3',
+        pregunta: '¿Qué equipos incluye el servicio de alquiler de Backline y PA?',
+        respuesta: 'Nuestro servicio de backline incluye sistemas de PA profesional (Line arrays, tops + subs), amplificadores de guitarra eléctrica y bajo (Marshall, Fender, Ampeg), sistemas de monitoreo in-ear inalámbrico (Sennheiser, Shure), y procesadores multiefectos de referencia. Todos se entregan probados, calibrados y con soporte técnico en sitio.'
+      },
+      {
+        id: 'faq-4',
+        pregunta: '¿Cómo agendo una sesión o consulta de Musicoterapia?',
+        respuesta: 'Puedes contactarnos directamente por WhatsApp o correo electrónico para coordinar una consulta inicial sin costo. En esa reunión evaluamos tus necesidades (clínicas, educativas o comunitarias) y diseñamos un programa de sesiones personalizado. También atendemos solicitudes de talleres para instituciones, empresas y fundaciones.'
+      }
+    ];
+
+    function getStoredTestimonios() {
+      try {
+        const s = localStorage.getItem(STORAGE_KEY_TESTIMONIOS);
+        if (s) return JSON.parse(s);
+      } catch(e) {}
+      return DEFAULT_TESTIMONIOS;
+    }
+
+    function saveStoredTestimonios(list) {
+      localStorage.setItem(STORAGE_KEY_TESTIMONIOS, JSON.stringify(list));
+      renderTestimonios();
+      renderCmsTestimonios();
+    }
+
+    function renderTestimonios() {
+      const list = getStoredTestimonios();
+      const container = document.getElementById('testimoniosGrid');
+      if (!container) return;
+      if (!list || list.length === 0) {
+        container.innerHTML = '<p class="text-zinc-500 text-sm text-center col-span-3 py-12">No hay testimonios publicados aún.</p>';
+        return;
+      }
+      container.innerHTML = list.map(t => {
+        const stars = '★'.repeat(Math.min(5, Math.max(1, t.estrellas || 5)));
+        return `
+          <div class="card-hover rounded-3xl bg-zinc-900 border border-zinc-800 p-7 flex flex-col gap-5 shadow-xl reveal-on-scroll">
+            <div class="flex items-center gap-1 text-amber-400 text-lg">${stars}</div>
+            <blockquote class="text-zinc-300 text-sm leading-relaxed font-light flex-1">
+              <span class="text-4xl text-zinc-700 font-display leading-none select-none">"</span>
+              ${escapeHtml(t.texto)}
+              <span class="text-4xl text-zinc-700 font-display leading-none select-none">"</span>
+            </blockquote>
+            <div class="flex items-center gap-3 pt-4 border-t border-zinc-800">
+              <img src="${escapeHtml(t.foto || 'assets/testimonios/foto.jpg')}" alt="${escapeHtml(t.nombre)}" class="w-12 h-12 rounded-full object-cover border border-zinc-700 shrink-0" onerror="this.onerror=null;this.src='assets/artistas/artista1.jpg';">
+              <div>
+                <p class="text-sm font-bold text-white">${escapeHtml(t.nombre)}</p>
+                <p class="text-xs text-zinc-500">${escapeHtml(t.rol || '')}</p>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function renderCmsTestimonios() {
+      const list = getStoredTestimonios();
+      const badge = document.getElementById('badgeCountTestimonios');
+      if (badge) badge.textContent = list.length;
+      const container = document.getElementById('cmsTestimoniosList');
+      if (!container) return;
+      if (!list || list.length === 0) {
+        container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-4">No hay testimonios.</p>';
+        return;
+      }
+      container.innerHTML = list.map(t => `
+        <div class="flex items-start justify-between p-3 rounded-xl bg-zinc-900 border border-zinc-800 gap-3">
+          <div class="overflow-hidden flex-1">
+            <p class="text-sm font-bold text-white truncate">${escapeHtml(t.nombre)}</p>
+            <p class="text-xs text-zinc-400 truncate">${escapeHtml(t.texto)}</p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="openEditTestimonioModal('${t.id}')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-sky-400 hover:text-white hover:bg-sky-950/50 border border-sky-900/40 transition-colors">Editar</button>
+            <button onclick="deleteTestimonio('${t.id}')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-rose-400 hover:text-white hover:bg-rose-950/50 border border-rose-900/40 transition-colors">Eliminar</button>
+          </div>
+        </div>`).join('');
+    }
+
+    function handleSaveTestimonio(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('testimonioNombre').value.trim();
+      const rol = document.getElementById('testimonioRol').value.trim();
+      const texto = document.getElementById('testimonioTexto').value.trim();
+      const estrellas = parseInt(document.getElementById('testimonioEstrellas').value) || 5;
+      const foto = document.getElementById('testimonioFoto').value.trim() || 'assets/testimonios/foto.jpg';
+      const list = getStoredTestimonios();
+      list.push({ id: 'test-' + Date.now(), nombre, rol, texto, estrellas, foto });
+      saveStoredTestimonios(list);
+      document.getElementById('formAddTestimonio').reset();
+      document.getElementById('testimonioEstrellas').value = '5';
+      showCmsAlert('¡Testimonio guardado y publicado!');
+    }
+
+    function deleteTestimonio(id) {
+      if (!confirm('¿Eliminar este testimonio?')) return;
+      saveStoredTestimonios(getStoredTestimonios().filter(t => t.id !== id));
+      showCmsAlert('Testimonio eliminado.');
+    }
+
+    function openEditTestimonioModal(id) {
+      const t = getStoredTestimonios().find(x => x.id === id);
+      if (!t) return;
+      document.getElementById('editTestimonioId').value = t.id;
+      document.getElementById('editTestimonioNombre').value = t.nombre || '';
+      document.getElementById('editTestimonioRol').value = t.rol || '';
+      document.getElementById('editTestimonioTexto').value = t.texto || '';
+      document.getElementById('editTestimonioEstrellas').value = t.estrellas || 5;
+      document.getElementById('editTestimonioFoto').value = t.foto || '';
+      document.getElementById('modalEditTestimonio').classList.remove('hidden');
+    }
+
+    function closeEditTestimonioModal() {
+      document.getElementById('modalEditTestimonio').classList.add('hidden');
+    }
+
+    function handleUpdateTestimonio(e) {
+      e.preventDefault();
+      const id = document.getElementById('editTestimonioId').value;
+      const list = getStoredTestimonios();
+      const index = list.findIndex(t => t.id === id);
+      if (index === -1) return;
+      list[index] = {
+        ...list[index],
+        nombre: document.getElementById('editTestimonioNombre').value.trim(),
+        rol: document.getElementById('editTestimonioRol').value.trim(),
+        texto: document.getElementById('editTestimonioTexto').value.trim(),
+        estrellas: parseInt(document.getElementById('editTestimonioEstrellas').value) || 5,
+        foto: document.getElementById('editTestimonioFoto').value.trim() || 'assets/testimonios/foto.jpg'
+      };
+      saveStoredTestimonios(list);
+      closeEditTestimonioModal();
+      showCmsAlert('¡Testimonio actualizado!');
+    }
+
+    // =========================================================================
+    // FAQ — Datos por defecto, Storage, Render, CRUD
+    // =========================================================================
+    function getStoredFaq() {
+      try {
+        const s = localStorage.getItem(STORAGE_KEY_FAQ);
+        if (s) return JSON.parse(s);
+      } catch(e) {}
+      return DEFAULT_FAQ;
+    }
+
+    function saveStoredFaq(list) {
+      localStorage.setItem(STORAGE_KEY_FAQ, JSON.stringify(list));
+      renderFaq();
+      renderCmsFaq();
+    }
+
+    function renderFaq() {
+      const list = getStoredFaq();
+      const container = document.getElementById('faqContainer');
+      if (!container) return;
+      if (!list || list.length === 0) {
+        container.innerHTML = '<p class="text-zinc-500 text-sm text-center py-12">No hay preguntas frecuentes publicadas.</p>';
+        return;
+      }
+      container.innerHTML = list.map((f, i) => `
+        <div class="border border-zinc-800 rounded-2xl overflow-hidden bg-zinc-900 reveal-on-scroll">
+          <button class="w-full flex items-center justify-between px-6 py-5 text-left gap-4 hover:bg-zinc-800/50 transition-colors" onclick="toggleFaqItem('faq-body-${i}', this)">
+            <span class="text-sm sm:text-base font-semibold text-white flex-1">${escapeHtml(f.pregunta)}</span>
+            <svg class="faq-chevron w-5 h-5 text-zinc-400 shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div id="faq-body-${i}" class="hidden px-6 pb-5 border-t border-zinc-800">
+            <p class="text-zinc-400 text-sm leading-relaxed pt-4">${escapeHtml(f.respuesta)}</p>
+          </div>
+        </div>`).join('');
+    }
+
+    function toggleFaqItem(bodyId, btn) {
+      const body = document.getElementById(bodyId);
+      if (!body) return;
+      const isOpen = !body.classList.contains('hidden');
+      body.classList.toggle('hidden', isOpen);
+      const icon = btn.querySelector('.faq-chevron');
+      if (icon) icon.style.transform = isOpen ? '' : 'rotate(180deg)';
+    }
+
+    function renderCmsFaq() {
+      const list = getStoredFaq();
+      const badge = document.getElementById('badgeCountFaq');
+      if (badge) badge.textContent = list.length;
+      const container = document.getElementById('cmsFaqList');
+      if (!container) return;
+      if (!list || list.length === 0) {
+        container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-4">No hay preguntas FAQ.</p>';
+        return;
+      }
+      container.innerHTML = list.map(f => `
+        <div class="flex items-start justify-between p-3 rounded-xl bg-zinc-900 border border-zinc-800 gap-3">
+          <div class="overflow-hidden flex-1">
+            <p class="text-sm font-bold text-white truncate">${escapeHtml(f.pregunta)}</p>
+            <p class="text-xs text-zinc-400 truncate">${escapeHtml(f.respuesta)}</p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button onclick="openEditFaqModal('${f.id}')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-sky-400 hover:text-white hover:bg-sky-950/50 border border-sky-900/40 transition-colors">Editar</button>
+            <button onclick="deleteFaqItem('${f.id}')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-rose-400 hover:text-white hover:bg-rose-950/50 border border-rose-900/40 transition-colors">Eliminar</button>
+          </div>
+        </div>`).join('');
+    }
+
+    function handleSaveFaq(e) {
+      e.preventDefault();
+      const pregunta = document.getElementById('faqPregunta').value.trim();
+      const respuesta = document.getElementById('faqRespuesta').value.trim();
+      const list = getStoredFaq();
+      list.push({ id: 'faq-' + Date.now(), pregunta, respuesta });
+      saveStoredFaq(list);
+      document.getElementById('formAddFaq').reset();
+      showCmsAlert('¡Pregunta FAQ guardada y publicada!');
+    }
+
+    function deleteFaqItem(id) {
+      if (!confirm('¿Eliminar esta pregunta?')) return;
+      saveStoredFaq(getStoredFaq().filter(f => f.id !== id));
+      showCmsAlert('Pregunta eliminada.');
+    }
+
+    function openEditFaqModal(id) {
+      const f = getStoredFaq().find(x => x.id === id);
+      if (!f) return;
+      document.getElementById('editFaqId').value = f.id;
+      document.getElementById('editFaqPregunta').value = f.pregunta || '';
+      document.getElementById('editFaqRespuesta').value = f.respuesta || '';
+      document.getElementById('modalEditFaq').classList.remove('hidden');
+    }
+
+    function closeEditFaqModal() {
+      document.getElementById('modalEditFaq').classList.add('hidden');
+    }
+
+    function handleUpdateFaq(e) {
+      e.preventDefault();
+      const id = document.getElementById('editFaqId').value;
+      const list = getStoredFaq();
+      const index = list.findIndex(f => f.id === id);
+      if (index === -1) return;
+      list[index] = {
+        ...list[index],
+        pregunta: document.getElementById('editFaqPregunta').value.trim(),
+        respuesta: document.getElementById('editFaqRespuesta').value.trim()
+      };
+      saveStoredFaq(list);
+      closeEditFaqModal();
+      showCmsAlert('¡Pregunta FAQ actualizada!');
+    }
+
+    // Inicializar renders y textos al cargar la página
+    // Prioridad: 1) localStorage (ediciones admin), 2) data.json (fuente maestra), 3) DEFAULT_* (fallback)
     document.addEventListener('DOMContentLoaded', () => {
-      renderArtists();
-      renderCovers();
       applySiteTexts();
+
+      // Intentar cargar data.json como fuente base; localStorage sobreescribe si tiene datos
+      fetch('data.json')
+        .then(r => r.ok ? r.json() : Promise.reject('No data.json'))
+        .then(data => {
+          // Artistas: usar localStorage si existe, si no usar data.json
+          if (!localStorage.getItem(STORAGE_KEY_ARTISTS) && data.artistas) {
+            localStorage.setItem(STORAGE_KEY_ARTISTS, JSON.stringify(data.artistas));
+          }
+          // Portadas
+          if (!localStorage.getItem(STORAGE_KEY_COVERS) && data.portadas) {
+            localStorage.setItem(STORAGE_KEY_COVERS, JSON.stringify(data.portadas));
+          }
+          // Testimonios
+          if (!localStorage.getItem(STORAGE_KEY_TESTIMONIOS) && data.testimonios) {
+            localStorage.setItem(STORAGE_KEY_TESTIMONIOS, JSON.stringify(data.testimonios));
+          }
+          // FAQ
+          if (!localStorage.getItem(STORAGE_KEY_FAQ) && data.faq) {
+            localStorage.setItem(STORAGE_KEY_FAQ, JSON.stringify(data.faq));
+          }
+          // Textos del sitio
+          if (!localStorage.getItem(STORAGE_KEY_TEXTS) && data.textos) {
+            localStorage.setItem(STORAGE_KEY_TEXTS, JSON.stringify(data.textos));
+            applySiteTexts();
+          }
+        })
+        .catch(() => { /* Sin data.json, se usan DEFAULT_* normalmente */ })
+        .finally(() => {
+          renderArtists();
+          renderCovers();
+          renderTestimonios();
+          renderFaq();
+          // Re-observar nuevos elementos reveal-on-scroll
+          document.querySelectorAll('.reveal-on-scroll:not(.observed)').forEach(el => {
+            el.classList.add('observed');
+            revealObserver.observe(el);
+          });
+        });
     });
-    // Fallback inmediato
+
+    // Fallback sincrónico (antes del DOMContentLoaded)
     renderArtists();
     renderCovers();
-    applySiteTexts();
+    renderTestimonios();
+    renderFaq();
 
     // Form Handling with Formspree (AJAX submission)
     async function handleFormSubmit(e) {
@@ -3274,6 +3700,68 @@
       revealObserver.observe(el);
     });
   </script>
+
+  <!-- Modal: Editar Testimonio -->
+  <div id="modalEditTestimonio" class="hidden fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-md p-7 shadow-2xl relative">
+      <button onclick="closeEditTestimonioModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-1 text-xl leading-none">&times;</button>
+      <h3 class="font-display text-lg font-bold text-white mb-5">Editar Testimonio</h3>
+      <form onsubmit="handleUpdateTestimonio(event)" class="space-y-4">
+        <input type="hidden" id="editTestimonioId">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Nombre *</label>
+            <input type="text" id="editTestimonioNombre" required class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Rol / Proyecto</label>
+            <input type="text" id="editTestimonioRol" class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Testimonio *</label>
+          <textarea id="editTestimonioTexto" rows="3" required class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none resize-none"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Estrellas (1–5)</label>
+            <input type="number" id="editTestimonioEstrellas" min="1" max="5" class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Ruta Foto</label>
+            <input type="text" id="editTestimonioFoto" placeholder="assets/testimonios/foto.jpg" class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button type="button" onclick="closeEditTestimonioModal()" class="flex-1 py-2.5 rounded-xl text-sm font-semibold border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors">Cancelar</button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl text-sm font-bold bg-white text-black hover:bg-zinc-200 transition-colors">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Editar FAQ -->
+  <div id="modalEditFaq" class="hidden fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-lg p-7 shadow-2xl relative">
+      <button onclick="closeEditFaqModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-1 text-xl leading-none">&times;</button>
+      <h3 class="font-display text-lg font-bold text-white mb-5">Editar Pregunta FAQ</h3>
+      <form onsubmit="handleUpdateFaq(event)" class="space-y-4">
+        <input type="hidden" id="editFaqId">
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Pregunta *</label>
+          <input type="text" id="editFaqPregunta" required class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Respuesta *</label>
+          <textarea id="editFaqRespuesta" rows="5" required class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none resize-none"></textarea>
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button type="button" onclick="closeEditFaqModal()" class="flex-1 py-2.5 rounded-xl text-sm font-semibold border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors">Cancelar</button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl text-sm font-bold bg-white text-black hover:bg-zinc-200 transition-colors">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
 </body>
 </html>

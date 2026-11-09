@@ -1,0 +1,114 @@
+{
+  "_meta": {
+    "exportado": "2026-11-09T00:00:00.000Z",
+    "version": "1.0",
+    "descripcion": "Fuente maestra de datos para Contrapunto web. Coloca este archivo en la raiz del proyecto junto a index.html. Genera una version actualizada desde el boton 'Exportar data.json' en admin.html."
+  },
+  "artistas": [
+    {
+      "id": "oneteik",
+      "nombre": "Oneteik",
+      "genero": "Urban / R&B",
+      "bio": "Fusion de R&B contemporaneo y beats urbanos de produccion propia. Oneteik captura la autenticidad de sus vivencias en letras directas y melodias pegajosas, con todo su proceso creativo respaldado por Contrapunto desde la grabacion hasta la distribucion global.",
+      "spotify": "https://open.spotify.com/playlist/1TTJuFxX4o76kgY2GiBSYs",
+      "instagram": "https://instagram.com/contrapunto.sc",
+      "imagen": "assets/artistas/artista1.jpg",
+      "tag": "Proyecto Activo",
+      "year": "2025 -"
+    },
+    {
+      "id": "omar-bueno",
+      "nombre": "Omar Bueno",
+      "genero": "Pop / Balada",
+      "bio": "Vocalista y compositor de baladas pop con influencias del soul clasico venezolano. Su primer EP producido en Contrapunto alcanzo colecciones editoriales en plataformas de streaming con masterizacion Dolby Atmos y estrategia de posicionamiento de lanzamiento.",
+      "spotify": "https://open.spotify.com/playlist/1TTJuFxX4o76kgY2GiBSYs",
+      "instagram": "https://instagram.com/contrapunto.sc",
+      "imagen": "assets/artistas/artista2.jpg",
+      "tag": "Lanzamiento Reciente",
+      "year": "2024 -"
+    }
+  ],
+  "portadas": [
+    {
+      "id": "cover-1",
+      "titulo": "Claroscuro EP",
+      "artista": "Oneteik",
+      "year": "2025",
+      "formato": "EP Oficial",
+      "imagen": "assets/artistas/artista1.jpg"
+    },
+    {
+      "id": "cover-2",
+      "titulo": "Vuelo Interior",
+      "artista": "Omar Bueno",
+      "year": "2024",
+      "formato": "Album",
+      "imagen": "assets/artistas/artista2.jpg"
+    },
+    {
+      "id": "cover-3",
+      "titulo": "Sesiones En Vivo Vol. 1",
+      "artista": "Contrapunto Live Sessions",
+      "year": "2025",
+      "formato": "Live Session",
+      "imagen": "assets/artistas/artista1.jpg"
+    },
+    {
+      "id": "cover-4",
+      "titulo": "Frecuencias & Espacio",
+      "artista": "Omar Bueno & Oneteik",
+      "year": "2025",
+      "formato": "Single",
+      "imagen": "assets/artistas/artista2.jpg"
+    }
+  ],
+  "testimonios": [
+    {
+      "id": "test-1",
+      "nombre": "Oneteik",
+      "rol": "Urban R&B / EP Claroscuro 2025",
+      "texto": "Trabajar con Contrapunto fue transformador. No solo cuidaron cada detalle sonoro de mi EP, sino que me acompanaron como personas en todo el proceso. El trato humano y su vision artistica me dieron la confianza que necesitaba para lanzarme al mundo.",
+      "estrellas": 5,
+      "foto": "assets/testimonios/oneteik.jpg"
+    },
+    {
+      "id": "test-2",
+      "nombre": "Omar Bueno",
+      "rol": "Pop / Balada - Album Vuelo Interior",
+      "texto": "Desde la primera reunion supe que estaba en las manos correctas. Mi album logro entrar en playlists editoriales de Spotify gracias al pitching que coordinaron. Profesionales de verdad con corazon de artista.",
+      "estrellas": 5,
+      "foto": "assets/testimonios/omar.jpg"
+    },
+    {
+      "id": "test-3",
+      "nombre": "Artista Contrapunto",
+      "rol": "Proyecto en Desarrollo",
+      "texto": "El proceso de grabacion y la asesoria en derechos de autor fue impecable. Siento que mis masters estan bien protegidos y mi musica suena exactamente como la imagine. Recomiendo Contrapunto a cualquier artista independiente.",
+      "estrellas": 5,
+      "foto": "assets/testimonios/artista3.jpg"
+    }
+  ],
+  "faq": [
+    {
+      "id": "faq-1",
+      "pregunta": "¿Puedo contratar el Pitching Editorial si no distribuyo mi musica con Contrapunto?",
+      "respuesta": "Si, el servicio de Pitching Editorial esta disponible tanto para artistas del sello Contrapunto como para artistas que trabajan con otras distribuidoras. Lo unico que necesitamos es que tu lanzamiento este disponible en las plataformas de streaming antes de la fecha de pitch."
+    },
+    {
+      "id": "faq-2",
+      "pregunta": "¿Como funciona la proteccion de derechos de autor y propiedad intelectual?",
+      "respuesta": "En Contrapunto asesoramos legalmente a cada artista para el registro de sus obras ante las sociedades de gestion colectiva (SACVEN u otras). Tambien incluimos clausulas de propiedad intelectual en todos nuestros contratos, garantizando que el artista mantenga la titularidad de sus masters y derechos de autor."
+    },
+    {
+      "id": "faq-3",
+      "pregunta": "¿Que equipos incluye el servicio de alquiler de Backline y PA?",
+      "respuesta": "Nuestro servicio de backline incluye sistemas de PA profesional (Line arrays y tops + subs), amplificadores de guitarra electrica y bajo (Marshall, Fender, Ampeg), sistemas de monitoreo in-ear inalambrico (Sennheiser, Shure), procesadores multiefectos y pedaleras de referencia. Todos los equipos se entregan probados, calibrados y con soporte tecnico en sitio."
+    },
+    {
+      "id": "faq-4",
+      "pregunta": "¿Como agendo una sesion o consulta de Musicoterapia?",
+      "respuesta": "Puedes contactarnos directamente por WhatsApp o correo electronico para coordinar una consulta inicial sin costo. En esa reunion evaluamos tus necesidades (clinicas, educativas o comunitarias) y disenamos un programa de sesiones personalizado. Tambien atendemos solicitudes de talleres para instituciones, empresas y fundaciones."
+    }
+  ],
+  "textos": null
+}

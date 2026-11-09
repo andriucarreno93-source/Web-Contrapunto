@@ -148,6 +148,19 @@
             <span>Editar Textos de la Web</span>
             <span class="px-2 py-0.5 rounded-full text-[10px] bg-zinc-800 text-zinc-400 font-mono">CMS</span>
           </button>
+          <button id="btnTabTestimonios" onclick="switchTab('testimonios')" class="px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-zinc-400 hover:text-white flex items-center gap-2">
+            <span>Testimonios</span>
+            <span id="tabCountTestimonios" class="px-2 py-0.5 rounded-full text-[10px] bg-zinc-800 text-zinc-400 font-mono">0</span>
+          </button>
+          <button id="btnTabFaq" onclick="switchTab('faq')" class="px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-zinc-400 hover:text-white flex items-center gap-2">
+            <span>FAQ</span>
+            <span id="tabCountFaq" class="px-2 py-0.5 rounded-full text-[10px] bg-zinc-800 text-zinc-400 font-mono">0</span>
+          </button>
+          <!-- Botón Exportar data.json -->
+          <button onclick="exportDataJson()" class="px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-emerald-300 hover:text-black hover:bg-emerald-400 bg-emerald-950 border border-emerald-800 hover:border-emerald-400 flex items-center gap-2 ml-auto">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>Exportar data.json</span>
+          </button>
         </div>
       </div>
 
@@ -781,6 +794,157 @@
     </div>
   </div>
 
+  <!-- SECCIÓN: TESTIMONIOS -->
+  <section id="sectionTestimonios" class="space-y-8 hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Formulario Agregar Testimonio -->
+      <div class="lg:col-span-5 bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <h2 class="font-display text-xl font-bold text-white mb-2 flex items-center gap-2">
+          <svg class="w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          <span>Agregar Testimonio</span>
+        </h2>
+        <p class="text-xs text-zinc-400 mb-6">Añade la experiencia de un artista para la sección de prueba social.</p>
+        <form id="testimonioForm" onsubmit="saveTestimonio(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Nombre del Artista *</label>
+              <input type="text" id="inpTestNombre" required placeholder="Ej: Elena Cruz" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Rol / Proyecto</label>
+              <input type="text" id="inpTestRol" placeholder="Ej: Cantautora / EP 2025" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Testimonio *</label>
+            <textarea id="inpTestTexto" rows="4" required placeholder="¿Qué experiencia tuvo trabajando con Contrapunto?" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none resize-none"></textarea>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Estrellas (1–5)</label>
+              <input type="number" id="inpTestEstrellas" min="1" max="5" value="5" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Ruta de Foto</label>
+              <input type="text" id="inpTestFoto" placeholder="assets/testimonios/foto.jpg" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+            </div>
+          </div>
+          <p class="text-[11px] text-zinc-500">📁 Guarda la foto en <code class="text-zinc-400 bg-zinc-800 px-1 rounded">assets/testimonios/</code> y escribe la ruta relativa para GitHub Pages.</p>
+          <button type="submit" class="btn-glow w-full py-3 rounded-xl font-bold text-sm bg-white text-black hover:bg-zinc-200 transition-all shadow-md">Publicar Testimonio</button>
+        </form>
+      </div>
+      <!-- Lista de Testimonios -->
+      <div class="lg:col-span-7 bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-display text-xl font-bold text-white flex items-center gap-2">
+            <span>Testimonios Publicados</span>
+            <span id="lblTestCount" class="px-2 py-0.5 rounded-full text-xs bg-zinc-800 text-zinc-300 font-mono">0</span>
+          </h2>
+          <button onclick="resetTestimonios()" class="text-xs text-zinc-500 hover:text-rose-400 transition-colors px-3 py-1.5 rounded-lg border border-zinc-800 hover:border-rose-900">Restablecer</button>
+        </div>
+        <div id="listTestimonios" class="space-y-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Editar Testimonio (admin.html) -->
+  <div id="modalEditTestimonioAdmin" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-md p-7 shadow-2xl relative">
+      <button onclick="closeEditTestimonioAdmin()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-1 text-xl">&times;</button>
+      <h3 class="font-display text-lg font-bold text-white mb-5">Editar Testimonio</h3>
+      <form onsubmit="handleUpdateTestimonioAdmin(event)" class="space-y-4">
+        <input type="hidden" id="editTestIdAdmin">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Nombre *</label>
+            <input type="text" id="editTestNombreAdmin" required class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Rol</label>
+            <input type="text" id="editTestRolAdmin" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Testimonio *</label>
+          <textarea id="editTestTextoAdmin" rows="3" required class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none resize-none"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Estrellas (1–5)</label>
+            <input type="number" id="editTestEstrellasAdmin" min="1" max="5" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Ruta Foto</label>
+            <input type="text" id="editTestFotoAdmin" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button type="button" onclick="closeEditTestimonioAdmin()" class="flex-1 py-2.5 rounded-xl text-sm font-semibold border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors">Cancelar</button>
+          <button type="submit" class="flex-1 btn-glow py-2.5 rounded-xl text-sm font-bold bg-white text-black hover:bg-zinc-200">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SECCIÓN: FAQ -->
+  <section id="sectionFaq" class="space-y-8 hidden">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Formulario Agregar FAQ -->
+      <div class="lg:col-span-5 bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <h2 class="font-display text-xl font-bold text-white mb-2 flex items-center gap-2">
+          <svg class="w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          <span>Agregar Pregunta FAQ</span>
+        </h2>
+        <p class="text-xs text-zinc-400 mb-6">Añade preguntas frecuentes que se mostrarán en el acordeón de la web.</p>
+        <form id="faqForm" onsubmit="saveFaq(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Pregunta *</label>
+            <input type="text" id="inpFaqPregunta" required placeholder="Ej: ¿Cómo funciona el Pitching?" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Respuesta *</label>
+            <textarea id="inpFaqRespuesta" rows="5" required placeholder="Escribe la respuesta completa y clara..." class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none resize-none"></textarea>
+          </div>
+          <button type="submit" class="btn-glow w-full py-3 rounded-xl font-bold text-sm bg-white text-black hover:bg-zinc-200 transition-all shadow-md">Publicar Pregunta</button>
+        </form>
+      </div>
+      <!-- Lista FAQ -->
+      <div class="lg:col-span-7 bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-display text-xl font-bold text-white flex items-center gap-2">
+            <span>Preguntas Publicadas</span>
+            <span id="lblFaqCount" class="px-2 py-0.5 rounded-full text-xs bg-zinc-800 text-zinc-300 font-mono">0</span>
+          </h2>
+          <button onclick="resetFaq()" class="text-xs text-zinc-500 hover:text-rose-400 transition-colors px-3 py-1.5 rounded-lg border border-zinc-800 hover:border-rose-900">Restablecer</button>
+        </div>
+        <div id="listFaq" class="space-y-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Editar FAQ (admin.html) -->
+  <div id="modalEditFaqAdmin" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-3xl w-full max-w-lg p-7 shadow-2xl relative">
+      <button onclick="closeEditFaqAdmin()" class="absolute top-4 right-4 text-zinc-400 hover:text-white p-1 text-xl">&times;</button>
+      <h3 class="font-display text-lg font-bold text-white mb-5">Editar Pregunta FAQ</h3>
+      <form onsubmit="handleUpdateFaqAdmin(event)" class="space-y-4">
+        <input type="hidden" id="editFaqIdAdmin">
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Pregunta *</label>
+          <input type="text" id="editFaqPreguntaAdmin" required class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Respuesta *</label>
+          <textarea id="editFaqRespuestaAdmin" rows="6" required class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none resize-none"></textarea>
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button type="button" onclick="closeEditFaqAdmin()" class="flex-1 py-2.5 rounded-xl text-sm font-semibold border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors">Cancelar</button>
+          <button type="submit" class="flex-1 btn-glow py-2.5 rounded-xl text-sm font-bold bg-white text-black hover:bg-zinc-200">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- JAVASCRIPT CMS -->
   <script>
     const DEFAULT_ADMIN_PASS = "contrapunto2026";
@@ -789,6 +953,8 @@
     const KEY_COVERS = "contrapunto_covers";
     const KEY_AUTH = "contrapunto_admin_auth";
     const KEY_TEXTS = "contrapunto_site_texts";
+    const KEY_TESTIMONIOS = "contrapunto_testimonios";
+    const KEY_FAQ = "contrapunto_faq";
 
     const DEFAULT_ARTISTS = [
       {
@@ -945,19 +1111,20 @@
       const secArtists = document.getElementById('sectionArtists');
       const secCovers = document.getElementById('sectionCovers');
       const secTexts = document.getElementById('sectionTexts');
+      const secTestimonios = document.getElementById('sectionTestimonios');
+      const secFaq = document.getElementById('sectionFaq');
       const btnArtists = document.getElementById('btnTabArtists');
       const btnCovers = document.getElementById('btnTabCovers');
       const btnTexts = document.getElementById('btnTabTexts');
+      const btnTestimonios = document.getElementById('btnTabTestimonios');
+      const btnFaq = document.getElementById('btnTabFaq');
 
       const activeClass = "px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all bg-white text-black shadow-sm flex items-center gap-2";
       const inactiveClass = "px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-zinc-400 hover:text-white flex items-center gap-2";
+      const exportClass = "px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-emerald-300 hover:text-black hover:bg-emerald-400 bg-emerald-950 border border-emerald-800 hover:border-emerald-400 flex items-center gap-2 ml-auto";
 
-      secArtists.classList.add('hidden');
-      secCovers.classList.add('hidden');
-      secTexts.classList.add('hidden');
-      btnArtists.className = inactiveClass;
-      btnCovers.className = inactiveClass;
-      btnTexts.className = inactiveClass;
+      [secArtists, secCovers, secTexts, secTestimonios, secFaq].forEach(s => { if (s) s.classList.add('hidden'); });
+      [btnArtists, btnCovers, btnTexts, btnTestimonios, btnFaq].forEach(b => { if (b) b.className = inactiveClass; });
 
       if (tab === 'artists') {
         secArtists.classList.remove('hidden');
@@ -969,6 +1136,14 @@
         secTexts.classList.remove('hidden');
         btnTexts.className = activeClass;
         populateTextsForm();
+      } else if (tab === 'testimonios') {
+        secTestimonios.classList.remove('hidden');
+        btnTestimonios.className = activeClass;
+        renderTestimoniosList();
+      } else if (tab === 'faq') {
+        secFaq.classList.remove('hidden');
+        btnFaq.className = activeClass;
+        renderFaqList();
       }
     }
 
@@ -1480,6 +1655,243 @@
       errEl.classList.add('hidden');
       closeChangePasswordModal();
       toast("¡Contraseña de administrador actualizada con éxito!");
+    }
+
+    // =========================================================================
+    // TESTIMONIOS — Datos, Render, CRUD
+    // =========================================================================
+    const DEFAULT_TESTIMONIOS_ADMIN = [
+      { id: 'test-1', nombre: 'Oneteik', rol: 'Urban R&B / EP Claroscuro 2025', texto: 'Trabajar con Contrapunto fue transformador. No solo cuidaron cada detalle sonoro de mi EP, sino que me acompañaron como personas en todo el proceso.', estrellas: 5, foto: 'assets/testimonios/oneteik.jpg' },
+      { id: 'test-2', nombre: 'Omar Bueno', rol: 'Pop / Balada · Álbum Vuelo Interior', texto: 'Desde la primera reunión supe que estaba en las manos correctas. Mi álbum logró entrar en playlists editoriales de Spotify gracias al pitching que coordinaron.', estrellas: 5, foto: 'assets/testimonios/omar.jpg' },
+      { id: 'test-3', nombre: 'Artista Contrapunto', rol: 'Proyecto en Desarrollo', texto: 'El proceso de grabación y la asesoría en derechos de autor fue impecable. Recomiendo Contrapunto a cualquier artista independiente.', estrellas: 5, foto: 'assets/testimonios/artista3.jpg' }
+    ];
+
+    const DEFAULT_FAQ_ADMIN = [
+      { id: 'faq-1', pregunta: '¿Puedo contratar el Pitching Editorial si no distribuyo con Contrapunto?', respuesta: 'Sí, el servicio de Pitching Editorial está disponible tanto para artistas del sello como para artistas que trabajan con otras distribuidoras.' },
+      { id: 'faq-2', pregunta: '¿Cómo funciona la protección de derechos de autor?', respuesta: 'Asesoramos legalmente a cada artista para el registro de sus obras. Garantizamos que el artista mantenga la titularidad de sus masters y derechos de autor.' },
+      { id: 'faq-3', pregunta: '¿Qué equipos incluye el servicio de Backline y PA?', respuesta: 'Sistemas de PA profesional, amplificadores de guitarra y bajo, monitoreo in-ear inalámbrico y procesadores multiefectos. Todos probados y calibrados.' },
+      { id: 'faq-4', pregunta: '¿Cómo agendo una sesión de Musicoterapia?', respuesta: 'Contáctanos por WhatsApp o correo. Realizamos una consulta inicial sin costo para evaluar tus necesidades y diseñar un programa personalizado.' }
+    ];
+
+    function getTestimonios() {
+      try { const s = localStorage.getItem(KEY_TESTIMONIOS); if (s) return JSON.parse(s); } catch(e) {}
+      return DEFAULT_TESTIMONIOS_ADMIN;
+    }
+
+    function renderTestimoniosList() {
+      const list = getTestimonios();
+      const countEl = document.getElementById('tabCountTestimonios');
+      const lblEl = document.getElementById('lblTestCount');
+      if (countEl) countEl.textContent = list.length;
+      if (lblEl) lblEl.textContent = list.length;
+      const container = document.getElementById('listTestimonios');
+      if (!container) return;
+      if (list.length === 0) { container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-6">No hay testimonios publicados.</p>'; return; }
+      container.innerHTML = list.map(t => `
+        <div class="flex items-start justify-between p-4 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-zinc-700 transition-colors gap-3">
+          <div class="overflow-hidden flex-1">
+            <p class="font-bold text-sm text-white truncate">${escapeHtml(t.nombre)}</p>
+            <p class="text-xs text-zinc-400 truncate">${'★'.repeat(t.estrellas||5)} · ${escapeHtml(t.rol||'')}</p>
+            <p class="text-xs text-zinc-500 truncate mt-0.5">${escapeHtml(t.texto)}</p>
+          </div>
+          <div class="flex gap-2 shrink-0">
+            <button onclick="openEditTestimonioAdmin('${t.id}')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-sky-400 hover:text-white hover:bg-sky-950/50 border border-sky-900/40 transition-colors flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              Editar
+            </button>
+            <button onclick="removeTestimonio('${t.id}')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-rose-400 hover:text-white hover:bg-rose-950/50 border border-rose-900/40 transition-colors">Eliminar</button>
+          </div>
+        </div>`).join('');
+    }
+
+    function saveTestimonio(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('inpTestNombre').value.trim();
+      const rol = document.getElementById('inpTestRol').value.trim();
+      const texto = document.getElementById('inpTestTexto').value.trim();
+      const estrellas = parseInt(document.getElementById('inpTestEstrellas').value) || 5;
+      const foto = document.getElementById('inpTestFoto').value.trim() || 'assets/testimonios/foto.jpg';
+      const list = getTestimonios();
+      list.push({ id: 'test-' + Date.now(), nombre, rol, texto, estrellas, foto });
+      localStorage.setItem(KEY_TESTIMONIOS, JSON.stringify(list));
+      document.getElementById('testimonioForm').reset();
+      document.getElementById('inpTestEstrellas').value = '5';
+      renderTestimoniosList();
+      toast(`¡Testimonio de "${nombre}" publicado!`);
+    }
+
+    function removeTestimonio(id) {
+      if (!confirm('¿Eliminar este testimonio?')) return;
+      localStorage.setItem(KEY_TESTIMONIOS, JSON.stringify(getTestimonios().filter(t => t.id !== id)));
+      renderTestimoniosList();
+      toast('Testimonio eliminado.');
+    }
+
+    function resetTestimonios() {
+      if (!confirm('¿Restablecer testimonios predeterminados?')) return;
+      localStorage.setItem(KEY_TESTIMONIOS, JSON.stringify(DEFAULT_TESTIMONIOS_ADMIN));
+      renderTestimoniosList();
+      toast('Testimonios restablecidos.');
+    }
+
+    function openEditTestimonioAdmin(id) {
+      const t = getTestimonios().find(x => x.id === id);
+      if (!t) return;
+      document.getElementById('editTestIdAdmin').value = t.id;
+      document.getElementById('editTestNombreAdmin').value = t.nombre || '';
+      document.getElementById('editTestRolAdmin').value = t.rol || '';
+      document.getElementById('editTestTextoAdmin').value = t.texto || '';
+      document.getElementById('editTestEstrellasAdmin').value = t.estrellas || 5;
+      document.getElementById('editTestFotoAdmin').value = t.foto || '';
+      document.getElementById('modalEditTestimonioAdmin').classList.remove('hidden');
+    }
+
+    function closeEditTestimonioAdmin() {
+      document.getElementById('modalEditTestimonioAdmin').classList.add('hidden');
+    }
+
+    function handleUpdateTestimonioAdmin(e) {
+      e.preventDefault();
+      const id = document.getElementById('editTestIdAdmin').value;
+      const list = getTestimonios();
+      const index = list.findIndex(t => t.id === id);
+      if (index === -1) return;
+      list[index] = {
+        ...list[index],
+        nombre: document.getElementById('editTestNombreAdmin').value.trim(),
+        rol: document.getElementById('editTestRolAdmin').value.trim(),
+        texto: document.getElementById('editTestTextoAdmin').value.trim(),
+        estrellas: parseInt(document.getElementById('editTestEstrellasAdmin').value) || 5,
+        foto: document.getElementById('editTestFotoAdmin').value.trim() || 'assets/testimonios/foto.jpg'
+      };
+      localStorage.setItem(KEY_TESTIMONIOS, JSON.stringify(list));
+      renderTestimoniosList();
+      closeEditTestimonioAdmin();
+      toast('¡Testimonio actualizado!');
+    }
+
+    // =========================================================================
+    // FAQ — Datos, Render, CRUD
+    // =========================================================================
+    function getFaq() {
+      try { const s = localStorage.getItem(KEY_FAQ); if (s) return JSON.parse(s); } catch(e) {}
+      return DEFAULT_FAQ_ADMIN;
+    }
+
+    function renderFaqList() {
+      const list = getFaq();
+      const countEl = document.getElementById('tabCountFaq');
+      const lblEl = document.getElementById('lblFaqCount');
+      if (countEl) countEl.textContent = list.length;
+      if (lblEl) lblEl.textContent = list.length;
+      const container = document.getElementById('listFaq');
+      if (!container) return;
+      if (list.length === 0) { container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-6">No hay preguntas FAQ.</p>'; return; }
+      container.innerHTML = list.map(f => `
+        <div class="flex items-start justify-between p-4 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-zinc-700 transition-colors gap-3">
+          <div class="overflow-hidden flex-1">
+            <p class="font-bold text-sm text-white truncate">${escapeHtml(f.pregunta)}</p>
+            <p class="text-xs text-zinc-400 truncate mt-0.5">${escapeHtml(f.respuesta)}</p>
+          </div>
+          <div class="flex gap-2 shrink-0">
+            <button onclick="openEditFaqAdmin('${f.id}')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-sky-400 hover:text-white hover:bg-sky-950/50 border border-sky-900/40 transition-colors flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              Editar
+            </button>
+            <button onclick="removeFaq('${f.id}')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-rose-400 hover:text-white hover:bg-rose-950/50 border border-rose-900/40 transition-colors">Eliminar</button>
+          </div>
+        </div>`).join('');
+    }
+
+    function saveFaq(e) {
+      e.preventDefault();
+      const pregunta = document.getElementById('inpFaqPregunta').value.trim();
+      const respuesta = document.getElementById('inpFaqRespuesta').value.trim();
+      const list = getFaq();
+      list.push({ id: 'faq-' + Date.now(), pregunta, respuesta });
+      localStorage.setItem(KEY_FAQ, JSON.stringify(list));
+      document.getElementById('faqForm').reset();
+      renderFaqList();
+      toast('¡Pregunta FAQ publicada!');
+    }
+
+    function removeFaq(id) {
+      if (!confirm('¿Eliminar esta pregunta?')) return;
+      localStorage.setItem(KEY_FAQ, JSON.stringify(getFaq().filter(f => f.id !== id)));
+      renderFaqList();
+      toast('Pregunta eliminada.');
+    }
+
+    function resetFaq() {
+      if (!confirm('¿Restablecer preguntas FAQ predeterminadas?')) return;
+      localStorage.setItem(KEY_FAQ, JSON.stringify(DEFAULT_FAQ_ADMIN));
+      renderFaqList();
+      toast('FAQ restablecido.');
+    }
+
+    function openEditFaqAdmin(id) {
+      const f = getFaq().find(x => x.id === id);
+      if (!f) return;
+      document.getElementById('editFaqIdAdmin').value = f.id;
+      document.getElementById('editFaqPreguntaAdmin').value = f.pregunta || '';
+      document.getElementById('editFaqRespuestaAdmin').value = f.respuesta || '';
+      document.getElementById('modalEditFaqAdmin').classList.remove('hidden');
+    }
+
+    function closeEditFaqAdmin() {
+      document.getElementById('modalEditFaqAdmin').classList.add('hidden');
+    }
+
+    function handleUpdateFaqAdmin(e) {
+      e.preventDefault();
+      const id = document.getElementById('editFaqIdAdmin').value;
+      const list = getFaq();
+      const index = list.findIndex(f => f.id === id);
+      if (index === -1) return;
+      list[index] = {
+        ...list[index],
+        pregunta: document.getElementById('editFaqPreguntaAdmin').value.trim(),
+        respuesta: document.getElementById('editFaqRespuestaAdmin').value.trim()
+      };
+      localStorage.setItem(KEY_FAQ, JSON.stringify(list));
+      renderFaqList();
+      closeEditFaqAdmin();
+      toast('¡Pregunta FAQ actualizada!');
+    }
+
+    // =========================================================================
+    // EXPORTAR DATA.JSON — Descarga la fuente maestra del sitio
+    // =========================================================================
+    function exportDataJson() {
+      const data = {
+        _meta: {
+          exportado: new Date().toISOString(),
+          version: "1.0",
+          descripcion: "Fuente maestra de datos para Contrapunto web. Coloca este archivo en la raíz del proyecto junto a index.html."
+        },
+        artistas: getArtists(),
+        portadas: getCovers(),
+        testimonios: getTestimonios(),
+        faq: getFaq(),
+        textos: (() => {
+          try {
+            const s = localStorage.getItem(KEY_TEXTS);
+            return s ? JSON.parse(s) : null;
+          } catch(e) { return null; }
+        })()
+      };
+
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'data.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast('✅ data.json descargado. Colócalo en la raíz del proyecto (junto a index.html) y sube ambos a GitHub.');
     }
 
     // Auto-chequeo al cargar
