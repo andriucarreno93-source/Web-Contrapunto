@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin CMS | Contrapunto Música & Sonido</title>
+  <meta name="robots" content="noindex, nofollow">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Outfit"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #000000; }
+    ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+    .btn-glow { transition: all 0.25s ease; }
+    .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(255, 255, 255, 0.2); }
+  </style>
+</head>
+<body class="bg-black text-zinc-300 font-sans antialiased min-h-screen flex flex-col selection:bg-white selection:text-black">
+
+  <!-- ========================================================================= -->
+  <!-- VISTA 1: BLOQUEO POR CONTRASEÑA                                           -->
+  <!-- ========================================================================= -->
+  <div id="authScreen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-md w-full p-8 sm:p-10 text-center shadow-2xl relative">
+      <div class="w-16 h-16 rounded-2xl bg-zinc-800 border border-zinc-700 text-white flex items-center justify-center mx-auto mb-6 shadow-inner">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
+      </div>
+      <span class="px-3 py-1 rounded-full bg-zinc-800 border border-zinc-700 text-zinc-300 text-xs font-semibold uppercase tracking-wider mb-3 inline-block">
+        Panel Administrativo Privado
+      </span>
+      <h1 class="font-display text-2xl sm:text-3xl font-bold text-white mb-2">Contrapunto CMS</h1>
+      <p class="text-sm text-zinc-400 mb-8">
+        Ingresa la clave maestra para gestionar el contenido, artistas, portadas y textos de la web.
+      </p>
+
+      <form id="authForm" onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <input 
+            type="password" 
+            id="authPassword" 
+            placeholder="Clave de administrador" 
+            required 
+            class="w-full px-4 py-3.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500 text-sm tracking-wide text-center"
+          />
+        </div>
+        <p id="authError" class="text-xs text-rose-400 hidden font-medium">Contraseña incorrecta. Inténtalo de nuevo.</p>
+        <button type="submit" class="btn-glow w-full py-3.5 rounded-xl font-bold text-sm bg-white text-black hover:bg-zinc-200 transition-all shadow-md">
+          Ingresar al Panel
+        </button>
+      </form>
+
+      <div class="mt-8 pt-6 border-t border-zinc-800 flex justify-center">
+        <a href="index.html" class="text-xs text-zinc-500 hover:text-white transition-colors flex items-center gap-1.5">
+          <span>&larr; Volver al Sitio Web Principal</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- VISTA 2: PANEL DE ADMINISTRACIÓN ACTIVO                                   -->
+  <!-- ========================================================================= -->
+  <div id="dashboardScreen" class="hidden min-h-screen flex flex-col">
+    
+    <!-- Navbar Superior -->
+    <header class="sticky top-0 z-40 bg-zinc-950/90 backdrop-blur-xl border-b border-zinc-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <div class="flex items-center gap-4">
+            <a href="index.html" class="flex items-center gap-3 group">
+              <img src="logo.png" alt="Contrapunto" class="h-9 w-auto object-contain">
+              <span class="px-2.5 py-0.5 rounded-md bg-zinc-800 border border-zinc-700 text-white text-[11px] font-mono uppercase tracking-wider font-semibold">CMS Local</span>
+            </a>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <!-- Opción: Cambiar Contraseña -->
+            <button onclick="openChangePasswordModal()" class="text-xs font-semibold text-zinc-300 hover:text-white bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-3.5 py-2 rounded-xl transition-all flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+              </svg>
+              <span>Cambiar Contraseña</span>
+            </button>
+
+            <a href="index.html" class="text-xs font-semibold text-zinc-300 hover:text-white bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-4 py-2 rounded-xl transition-all flex items-center gap-1.5">
+              <span>&larr; Ver Sitio Web</span>
+            </a>
+            
+            <button onclick="handleLogout()" class="text-xs font-semibold text-zinc-400 hover:text-rose-400 px-3 py-2 transition-colors">
+              Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      
+      <!-- Encabezado de Página -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-semibold tracking-wider uppercase mb-2">
+            Gestor Dinámico de Contenido
+          </div>
+          <h1 class="font-display text-3xl sm:text-4xl font-extrabold text-white">
+            Panel de Administración
+          </h1>
+          <p class="text-sm text-zinc-400 mt-1">
+            Los datos se almacenan en tiempo real en <code class="text-zinc-300 bg-zinc-900 px-1.5 py-0.5 rounded text-xs">localStorage</code> y se sincronizan instantáneamente con la página principal.
+          </p>
+        </div>
+
+        <!-- Pestañas de Navegación -->
+        <div class="flex flex-wrap bg-zinc-900 p-1.5 rounded-2xl border border-zinc-800 shrink-0 gap-1">
+          <button id="btnTabArtists" onclick="switchTab('artists')" class="px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all bg-white text-black shadow-sm flex items-center gap-2">
+            <span>Artistas</span>
+            <span id="tabCountArtists" class="px-2 py-0.5 rounded-full text-[10px] bg-zinc-200 text-zinc-900 font-mono">0</span>
+          </button>
+          <button id="btnTabCovers" onclick="switchTab('covers')" class="px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-zinc-400 hover:text-white flex items-center gap-2">
+            <span>Portadas de Disco</span>
+            <span id="tabCountCovers" class="px-2 py-0.5 rounded-full text-[10px] bg-zinc-800 text-zinc-400 font-mono">0</span>
+          </button>
+          <button id="btnTabTexts" onclick="switchTab('texts')" class="px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-zinc-400 hover:text-white flex items-center gap-2">
+            <span>Editar Textos de la Web</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] bg-zinc-800 text-zinc-400 font-mono">CMS</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Toast de Alerta -->
+      <div id="alertToast" class="hidden mb-6 p-4 rounded-2xl bg-emerald-950/80 border border-emerald-800/80 text-emerald-200 text-sm flex items-center justify-between shadow-lg">
+        <span id="alertToastText">¡Operación completada con éxito!</span>
+        <button onclick="document.getElementById('alertToast').classList.add('hidden')" class="text-emerald-400 hover:text-white text-lg leading-none">&times;</button>
+      </div>
+
+      <!-- SECCIÓN 1: ARTISTAS -->
+      <section id="sectionArtists" class="space-y-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Formulario Agregar Artista -->
+          <div class="lg:col-span-6 bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+            <h2 class="font-display text-xl font-bold text-white mb-2 flex items-center gap-2">
+              <svg class="w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Agregar Nuevo Artista</span>
+            </h2>
+            <p class="text-xs text-zinc-400 mb-6">Añade los datos del artista o banda para que figure en la sección "Nuestra Familia de Artistas".</p>
+
+            <form id="artistForm" onsubmit="saveArtist(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Nombre del Artista *</label>
+                  <input type="text" id="inpArtistName" required placeholder="Ej: Elena Cruz" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Estilo / Género *</label>
+                  <input type="text" id="inpArtistGenre" required placeholder="Ej: Indie Pop / Soul" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Enlace a Spotify</label>
+                  <input type="url" id="inpArtistSpotify" placeholder="https://open.spotify.com/..." class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Etiqueta o Tag</label>
+                  <input type="text" id="inpArtistTag" placeholder="Ej: Proyecto Activo" value="Proyecto Activo" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Biografía Resumida *</label>
+                <textarea id="inpArtistBio" rows="3" required placeholder="Describe su sonido, trayectoria o propuesta artística..." class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none resize-none"></textarea>
+              </div>
+
+              <!-- Imagen Artista (Ruta Relativa para GitHub o Archivo Local) -->
+              <div>
+                <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Imagen del Artista *</label>
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+                  <div class="sm:col-span-6">
+                    <label class="flex flex-col items-center justify-center border-2 border-dashed border-zinc-700 hover:border-zinc-500 rounded-xl p-3 cursor-pointer bg-zinc-950 hover:bg-zinc-800 transition-colors text-center">
+                      <svg class="w-5 h-5 text-zinc-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                      <span class="text-xs text-zinc-300 font-medium">Seleccionar archivo</span>
+                      <span class="text-[10px] text-zinc-500">Respaldo Base64</span>
+                      <input type="file" id="inpArtistFile" accept="image/*" class="hidden" onchange="processImage(this, 'imgArtistPreview', 'inpArtistUrl')">
+                    </label>
+                  </div>
+                  <div class="sm:col-span-4">
+                    <input type="text" id="inpArtistUrl" placeholder="assets/artistas/foto.jpg" class="w-full px-3 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-xs focus:border-zinc-500 focus:outline-none font-mono" oninput="updatePreview('imgArtistPreview', this.value)">
+                  </div>
+                  <div class="sm:col-span-2 flex justify-center">
+                    <img id="imgArtistPreview" src="assets/artistas/artista1.jpg" alt="Preview" class="w-14 h-14 rounded-xl object-cover border border-zinc-700 bg-zinc-800" onerror="this.onerror=null; this.src='assets/artistas/artista1.jpg';">
+                  </div>
+                </div>
+
+                <!-- Ayuda GitHub Pages -->
+                <div class="mt-2.5 p-3 rounded-xl bg-zinc-950/70 border border-zinc-800 text-[11px] text-zinc-400 flex items-start gap-2">
+                  <svg class="w-4 h-4 text-sky-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <p>Para publicar en GitHub Pages, guarda tus imágenes en la carpeta <code class="text-amber-300 font-mono font-semibold">assets/artistas/</code> o <code class="text-amber-300 font-mono font-semibold">assets/portadas/</code> y coloca la ruta relativa correspondiente.</p>
+                </div>
+              </div>
+
+              <div class="pt-4 flex justify-end">
+                <button type="submit" class="btn-glow px-7 py-3 rounded-xl font-bold text-sm bg-white text-black hover:bg-zinc-200 transition-all flex items-center gap-2 shadow-md">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>Publicar Artista</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Lista de Artistas Registrados -->
+          <div class="lg:col-span-6 bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col">
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <h3 class="font-display text-xl font-bold text-white">Artistas en Catálogo</h3>
+                <p class="text-xs text-zinc-400">Total: <span id="lblArtistCount">0</span> artistas activos</p>
+              </div>
+              <button onclick="resetArtists()" class="text-xs text-zinc-500 hover:text-zinc-300 underline">
+                Restablecer predeterminados
+              </button>
+            </div>
+
+            <div id="gridArtistsList" class="space-y-3 flex-1 overflow-y-auto max-h-[600px] pr-1">
+              <!-- Render con JS -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECCIÓN 2: PORTADAS DE DISCO -->
+      <section id="sectionCovers" class="space-y-10 hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Formulario Agregar Portada -->
+          <div class="lg:col-span-6 bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+            <h2 class="font-display text-xl font-bold text-white mb-2 flex items-center gap-2">
+              <svg class="w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              <span>Agregar Portada de Disco</span>
+            </h2>
+            <p class="text-xs text-zinc-400 mb-6">Sube la carátula de un álbum, single o EP producido en el estudio para mostrarlo en el Portafolio Visual.</p>
+
+            <form id="coverForm" onsubmit="saveCover(event)" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Título del Proyecto / Álbum *</label>
+                  <input type="text" id="inpCoverTitle" required placeholder="Ej: Claroscuro EP" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Nombre del Artista *</label>
+                  <input type="text" id="inpCoverArtist" required placeholder="Ej: Oneteik" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Año *</label>
+                  <input type="text" id="inpCoverYear" required placeholder="Ej: 2026" value="2026" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Formato</label>
+                  <input type="text" id="inpCoverFormat" placeholder="Ej: Álbum / Single" value="Álbum" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+              </div>
+
+              <!-- Imagen Portada (Ruta Relativa o Archivo Local) -->
+              <div>
+                <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Imagen de la Portada *</label>
+                <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+                  <div class="sm:col-span-6">
+                    <label class="flex flex-col items-center justify-center border-2 border-dashed border-zinc-700 hover:border-zinc-500 rounded-xl p-3 cursor-pointer bg-zinc-950 hover:bg-zinc-800 transition-colors text-center">
+                      <svg class="w-5 h-5 text-zinc-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                      <span class="text-xs text-zinc-300 font-medium">Seleccionar carátula</span>
+                      <span class="text-[10px] text-zinc-500">Respaldo Base64</span>
+                      <input type="file" id="inpCoverFile" accept="image/*" class="hidden" onchange="processImage(this, 'imgCoverPreview', 'inpCoverUrl')">
+                    </label>
+                  </div>
+                  <div class="sm:col-span-4">
+                    <input type="text" id="inpCoverUrl" placeholder="assets/portadas/disco.jpg" class="w-full px-3 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white placeholder-zinc-500 text-xs focus:border-zinc-500 focus:outline-none font-mono" oninput="updatePreview('imgCoverPreview', this.value)">
+                  </div>
+                  <div class="sm:col-span-2 flex justify-center">
+                    <img id="imgCoverPreview" src="assets/artistas/artista1.jpg" alt="Preview" class="w-14 h-14 rounded-xl object-cover border border-zinc-700 bg-zinc-800" onerror="this.onerror=null; this.src='assets/artistas/artista1.jpg';">
+                  </div>
+                </div>
+
+                <!-- Ayuda GitHub Pages -->
+                <div class="mt-2.5 p-3 rounded-xl bg-zinc-950/70 border border-zinc-800 text-[11px] text-zinc-400 flex items-start gap-2">
+                  <svg class="w-4 h-4 text-sky-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <p>Para publicar en GitHub Pages, guarda tus imágenes en la carpeta <code class="text-amber-300 font-mono font-semibold">assets/artistas/</code> o <code class="text-amber-300 font-mono font-semibold">assets/portadas/</code> y coloca la ruta relativa correspondiente.</p>
+                </div>
+              </div>
+
+              <div class="pt-4 flex justify-end">
+                <button type="submit" class="btn-glow px-7 py-3 rounded-xl font-bold text-sm bg-white text-black hover:bg-zinc-200 transition-all flex items-center gap-2 shadow-md">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                  <span>Publicar en Portafolio</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Lista de Portadas en Portafolio -->
+          <div class="lg:col-span-6 bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col">
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <h3 class="font-display text-xl font-bold text-white">Portadas Activas</h3>
+                <p class="text-xs text-zinc-400">Total: <span id="lblCoverCount">0</span> portadas en galería</p>
+              </div>
+              <button onclick="resetCovers()" class="text-xs text-zinc-500 hover:text-zinc-300 underline">
+                Restablecer predeterminadas
+              </button>
+            </div>
+
+            <div id="gridCoversList" class="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1 overflow-y-auto max-h-[600px] pr-1">
+              <!-- Render con JS -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: EDITAR TEXTOS DE LA WEB (CMS DE TEXTOS DINÁMICO) -->
+      <section id="sectionTexts" class="space-y-8 hidden">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-zinc-800 gap-4 mb-6">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-800 border border-zinc-700 text-zinc-300 text-xs font-semibold uppercase tracking-wider mb-2">
+                CMS de Contenidos Globales
+              </div>
+              <h2 class="font-display text-2xl font-bold text-white">Editar Textos de la Web Principal</h2>
+              <p class="text-xs text-zinc-400 mt-1">Modifica los copys, descripciones técnicas, titulares y datos de contacto de la página.</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <button type="button" onclick="resetDefaultTexts()" class="px-4 py-2 text-xs font-medium text-zinc-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-xl transition-all">
+                Restablecer Predeterminados
+              </button>
+              <button type="button" onclick="saveSiteTextsFromForm()" class="btn-glow px-6 py-2.5 rounded-xl font-bold text-xs bg-white text-black hover:bg-zinc-200 transition-all shadow-md flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Guardar Cambios</span>
+              </button>
+            </div>
+          </div>
+
+          <form id="siteTextsForm" onsubmit="event.preventDefault(); saveSiteTextsFromForm();" class="space-y-8">
+            
+            <!-- BLOQUE A: HERO / INICIO -->
+            <div class="bg-zinc-950/60 border border-zinc-800/80 rounded-2xl p-6">
+              <div class="flex items-center gap-2 mb-4 pb-3 border-b border-zinc-800">
+                <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                <h3 class="font-display text-lg font-bold text-white">1. Titulares y Subtítulos del Hero / Inicio</h3>
+              </div>
+              
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Badge Superior de Posicionamiento</label>
+                  <input type="text" id="txtHeroBadge" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Titular Principal Emotivo (H1)</label>
+                  <input type="text" id="txtHeroTitle" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+                  <p class="text-[11px] text-zinc-500 mt-1">El texto "calidez humana" conservará automáticamente el degradado luminoso de estilo.</p>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Subtítulo Enfocado al Artista</label>
+                  <textarea id="txtHeroSubtitle" rows="3" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none resize-none"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                  <div class="p-3 bg-zinc-900/60 rounded-xl border border-zinc-800/80">
+                    <label class="block text-[11px] font-semibold text-zinc-400 uppercase mb-1">Métrica 1</label>
+                    <input type="text" id="txtHeroStat1Num" placeholder="100%" class="w-full mb-1.5 px-3 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-white text-xs">
+                    <input type="text" id="txtHeroStat1Label" placeholder="Control de Masters & Derechos" class="w-full px-3 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-300 text-xs">
+                  </div>
+                  <div class="p-3 bg-zinc-900/60 rounded-xl border border-zinc-800/80">
+                    <label class="block text-[11px] font-semibold text-zinc-400 uppercase mb-1">Métrica 2</label>
+                    <input type="text" id="txtHeroStat2Num" placeholder="1 a 1" class="w-full mb-1.5 px-3 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-white text-xs">
+                    <input type="text" id="txtHeroStat2Label" placeholder="Acompañamiento empático" class="w-full px-3 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-300 text-xs">
+                  </div>
+                  <div class="p-3 bg-zinc-900/60 rounded-xl border border-zinc-800/80">
+                    <label class="block text-[11px] font-semibold text-zinc-400 uppercase mb-1">Métrica 3</label>
+                    <input type="text" id="txtHeroStat3Num" placeholder="360°" class="w-full mb-1.5 px-3 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-white text-xs">
+                    <input type="text" id="txtHeroStat3Label" placeholder="Producción, Legal & Marketing" class="w-full px-3 py-1.5 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-300 text-xs">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BLOQUE B: SERVICIOS & BACKLINE -->
+            <div class="bg-zinc-950/60 border border-zinc-800/80 rounded-2xl p-6">
+              <div class="flex items-center gap-2 mb-4 pb-3 border-b border-zinc-800">
+                <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                <h3 class="font-display text-lg font-bold text-white">2. Textos de Servicios & Backline</h3>
+              </div>
+
+              <div class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Título del Servicio</label>
+                    <input type="text" id="txtBacklineTitle" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Badge de Categoría</label>
+                    <input type="text" id="txtBacklineBadge" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Descripción General de Alquiler de Backline</label>
+                  <textarea id="txtBacklineDesc" rows="2" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none resize-none"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                  <div>
+                    <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Sistemas de PA & Amplificación</label>
+                    <input type="text" id="txtBacklinePA" class="w-full px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-xs focus:border-zinc-500 focus:outline-none">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Amplificadores & Cabezales (Guitarra y Bajo)</label>
+                    <input type="text" id="txtBacklineAmps" class="w-full px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-xs focus:border-zinc-500 focus:outline-none">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Procesamiento Digital & Multiefectos</label>
+                    <input type="text" id="txtBacklinePedals" class="w-full px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-xs focus:border-zinc-500 focus:outline-none">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Monitoreo In-Ear Profesional</label>
+                    <input type="text" id="txtBacklineMonitoring" class="w-full px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-xs focus:border-zinc-500 focus:outline-none">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BLOQUE C: MUSICOTERAPIA & PROYECTO SOCIAL -->
+            <div class="bg-zinc-950/60 border border-zinc-800/80 rounded-2xl p-6">
+              <div class="flex items-center gap-2 mb-4 pb-3 border-b border-zinc-800">
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                <h3 class="font-display text-lg font-bold text-white">3. Textos e Información de Musicoterapia (Título, Descripción y Pilares)</h3>
+              </div>
+
+              <div class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Título de Sección</label>
+                    <input type="text" id="txtMusicoTitle" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Badge Superior</label>
+                    <input type="text" id="txtMusicoBadge" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Descripción de Musicoterapia</label>
+                  <textarea id="txtMusicoDesc" rows="2" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none resize-none"></textarea>
+                </div>
+
+                <!-- 3 Pilares -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                  <!-- Pilar 1 -->
+                  <div class="p-4 bg-zinc-900/60 rounded-2xl border border-zinc-800 space-y-3">
+                    <span class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider block">Pilar 1</span>
+                    <input type="text" id="txtMusicoPillar1Title" placeholder="Título Pilar 1" class="w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold">
+                    <textarea id="txtMusicoPillar1Desc" rows="4" placeholder="Descripción Pilar 1" class="w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-300 text-xs resize-none"></textarea>
+                    <input type="text" id="txtMusicoPillar1Footer" placeholder="Pie / Modalidad" class="w-full px-3 py-1.5 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-400 text-[11px]">
+                  </div>
+
+                  <!-- Pilar 2 -->
+                  <div class="p-4 bg-zinc-900/60 rounded-2xl border border-zinc-800 space-y-3">
+                    <span class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider block">Pilar 2</span>
+                    <input type="text" id="txtMusicoPillar2Title" placeholder="Título Pilar 2" class="w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold">
+                    <textarea id="txtMusicoPillar2Desc" rows="4" placeholder="Descripción Pilar 2" class="w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-300 text-xs resize-none"></textarea>
+                    <input type="text" id="txtMusicoPillar2Footer" placeholder="Pie / Modalidad" class="w-full px-3 py-1.5 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-400 text-[11px]">
+                  </div>
+
+                  <!-- Pilar 3 -->
+                  <div class="p-4 bg-zinc-900/60 rounded-2xl border border-zinc-800 space-y-3">
+                    <span class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider block">Pilar 3</span>
+                    <input type="text" id="txtMusicoPillar3Title" placeholder="Título Pilar 3" class="w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-bold">
+                    <textarea id="txtMusicoPillar3Desc" rows="4" placeholder="Descripción Pilar 3" class="w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-300 text-xs resize-none"></textarea>
+                    <input type="text" id="txtMusicoPillar3Footer" placeholder="Pie / Modalidad" class="w-full px-3 py-1.5 rounded-xl bg-zinc-950 border border-zinc-800 text-zinc-400 text-[11px]">
+                  </div>
+                </div>
+
+                <!-- Banner CTA Musicoterapia -->
+                <div class="p-4 bg-zinc-900/60 rounded-2xl border border-zinc-800 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Título Banner CTA</label>
+                    <input type="text" id="txtMusicoBannerTitle" class="w-full px-3.5 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs focus:border-zinc-500 focus:outline-none">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Subtítulo Banner CTA</label>
+                    <input type="text" id="txtMusicoBannerDesc" class="w-full px-3.5 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs focus:border-zinc-500 focus:outline-none">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- BLOQUE D: CONTACTO CORPORATIVO, WHATSAPP E INSTAGRAM -->
+            <div class="bg-zinc-950/60 border border-zinc-800/80 rounded-2xl p-6">
+              <div class="flex items-center gap-2 mb-4 pb-3 border-b border-zinc-800">
+                <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                <h3 class="font-display text-lg font-bold text-white">4. Número de Teléfono / WhatsApp e Instagram Corporativo</h3>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Teléfono / WhatsApp (Texto Visible)</label>
+                  <input type="text" id="txtContactPhone" placeholder="+58 424 715 9703" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+                  <p class="text-[11px] text-zinc-500 mt-1">Se muestra en pie de página y ficha de contacto directo.</p>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Número WhatsApp para Enlaces wa.me (Solo Dígitos)</label>
+                  <input type="text" id="txtContactWhatsAppRaw" placeholder="584247159703" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none font-mono">
+                  <p class="text-[11px] text-zinc-500 mt-1">Conecta los botones directos de WhatsApp en toda la web.</p>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Enlace a Instagram Corporativo</label>
+                  <input type="url" id="txtContactInstagram" placeholder="https://instagram.com/contrapunto.sc" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Usuario de Instagram Visible</label>
+                  <input type="text" id="txtContactInstagramUser" placeholder="@contrapunto.sc" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+
+                <div class="sm:col-span-2">
+                  <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Correo Electrónico de Contacto</label>
+                  <input type="email" id="txtContactEmail" placeholder="contacto@sellocontrapunto.com" class="w-full px-4 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+                </div>
+              </div>
+            </div>
+
+            <!-- Botón Guardar Inferior -->
+            <div class="pt-4 flex justify-end gap-3">
+              <button type="button" onclick="resetDefaultTexts()" class="px-5 py-3 text-xs font-medium text-zinc-400 hover:text-white bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-xl transition-all">
+                Restablecer Predeterminados
+              </button>
+              <button type="submit" class="btn-glow px-8 py-3 rounded-xl font-bold text-sm bg-white text-black hover:bg-zinc-200 transition-all shadow-md flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Guardar y Aplicar Textos</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer CMS -->
+    <footer class="border-t border-zinc-800 py-6 text-center text-xs text-zinc-500">
+      Contrapunto Música & Sonido &middot; Gestor de Contenido Local &copy; 2026
+    </footer>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: EDITAR ARTISTA                                                     -->
+  <!-- ========================================================================= -->
+  <div id="modalEditArtist" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 relative shadow-2xl my-8">
+      <div class="flex items-center justify-between pb-4 border-b border-zinc-800 mb-6">
+        <h3 class="font-display text-xl font-bold text-white flex items-center gap-2">
+          <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+          <span>Editar Artista</span>
+        </h3>
+        <button onclick="closeEditArtistModal()" class="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="editArtistForm" onsubmit="handleUpdateArtist(event)" class="space-y-4">
+        <input type="hidden" id="editArtistId">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Nombre del Artista *</label>
+            <input type="text" id="editArtistName" required class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Estilo / Género *</label>
+            <input type="text" id="editArtistGenre" required class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Enlace Spotify</label>
+            <input type="url" id="editArtistSpotify" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Etiqueta o Tag</label>
+            <input type="text" id="editArtistTag" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Biografía Resumida *</label>
+          <textarea id="editArtistBio" rows="3" required class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none resize-none"></textarea>
+        </div>
+
+        <!-- Imagen del Artista -->
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Imagen (Ruta Relativa o Archivo)</label>
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+            <div class="sm:col-span-6">
+              <label class="flex flex-col items-center justify-center border-2 border-dashed border-zinc-700 hover:border-zinc-500 rounded-xl p-2.5 cursor-pointer bg-zinc-950 hover:bg-zinc-800 transition-colors text-center">
+                <span class="text-xs text-zinc-300 font-medium">Cambiar archivo local</span>
+                <input type="file" id="editArtistFile" accept="image/*" class="hidden" onchange="processImage(this, 'editArtistPreview', 'editArtistUrl')">
+              </label>
+            </div>
+            <div class="sm:col-span-4">
+              <input type="text" id="editArtistUrl" placeholder="assets/artistas/foto.jpg" class="w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-mono" oninput="updatePreview('editArtistPreview', this.value)">
+            </div>
+            <div class="sm:col-span-2 flex justify-center">
+              <img id="editArtistPreview" src="assets/artistas/artista1.jpg" alt="Preview" class="w-12 h-12 rounded-xl object-cover border border-zinc-700 bg-zinc-800">
+            </div>
+          </div>
+          <p class="text-[11px] text-zinc-400 mt-2">Para publicar en GitHub Pages, guarda tus imágenes en la carpeta <code class="text-amber-300 font-mono">assets/artistas/</code> o <code class="text-amber-300 font-mono">assets/portadas/</code> y coloca la ruta relativa correspondiente.</p>
+        </div>
+
+        <div class="pt-4 flex justify-end gap-3">
+          <button type="button" onclick="closeEditArtistModal()" class="px-5 py-2.5 rounded-xl font-medium text-xs text-zinc-400 hover:text-white bg-zinc-800 transition-colors">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-glow px-6 py-2.5 rounded-xl font-bold text-xs bg-white text-black hover:bg-zinc-200 transition-all shadow-md">
+            Actualizar Artista
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: EDITAR PORTADA                                                     -->
+  <!-- ========================================================================= -->
+  <div id="modalEditCover" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm overflow-y-auto">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 relative shadow-2xl my-8">
+      <div class="flex items-center justify-between pb-4 border-b border-zinc-800 mb-6">
+        <h3 class="font-display text-xl font-bold text-white flex items-center gap-2">
+          <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+          <span>Editar Portada de Disco</span>
+        </h3>
+        <button onclick="closeEditCoverModal()" class="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="editCoverForm" onsubmit="handleUpdateCover(event)" class="space-y-4">
+        <input type="hidden" id="editCoverId">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Título del Proyecto / Álbum *</label>
+            <input type="text" id="editCoverTitle" required class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Nombre del Artista *</label>
+            <input type="text" id="editCoverArtist" required class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Año *</label>
+            <input type="text" id="editCoverYear" required class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Formato</label>
+            <input type="text" id="editCoverFormat" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+          </div>
+        </div>
+
+        <!-- Imagen de Portada -->
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Imagen de la Portada</label>
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
+            <div class="sm:col-span-6">
+              <label class="flex flex-col items-center justify-center border-2 border-dashed border-zinc-700 hover:border-zinc-500 rounded-xl p-2.5 cursor-pointer bg-zinc-950 hover:bg-zinc-800 transition-colors text-center">
+                <span class="text-xs text-zinc-300 font-medium">Cambiar archivo carátula</span>
+                <input type="file" id="editCoverFile" accept="image/*" class="hidden" onchange="processImage(this, 'editCoverPreview', 'editCoverUrl')">
+              </label>
+            </div>
+            <div class="sm:col-span-4">
+              <input type="text" id="editCoverUrl" placeholder="assets/portadas/disco.jpg" class="w-full px-3 py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-xs font-mono" oninput="updatePreview('editCoverPreview', this.value)">
+            </div>
+            <div class="sm:col-span-2 flex justify-center">
+              <img id="editCoverPreview" src="assets/artistas/artista1.jpg" alt="Preview" class="w-12 h-12 rounded-xl object-cover border border-zinc-700 bg-zinc-800">
+            </div>
+          </div>
+          <p class="text-[11px] text-zinc-400 mt-2">Para publicar en GitHub Pages, guarda tus imágenes en la carpeta <code class="text-amber-300 font-mono">assets/artistas/</code> o <code class="text-amber-300 font-mono">assets/portadas/</code> y coloca la ruta relativa correspondiente.</p>
+        </div>
+
+        <div class="pt-4 flex justify-end gap-3">
+          <button type="button" onclick="closeEditCoverModal()" class="px-5 py-2.5 rounded-xl font-medium text-xs text-zinc-400 hover:text-white bg-zinc-800 transition-colors">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-glow px-6 py-2.5 rounded-xl font-bold text-xs bg-white text-black hover:bg-zinc-200 transition-all shadow-md">
+            Actualizar Portada
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CAMBIAR CONTRASEÑA                                                 -->
+  <!-- ========================================================================= -->
+  <div id="modalChangePassword" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-sm">
+    <div class="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl">
+      <div class="flex items-center justify-between pb-4 border-b border-zinc-800 mb-6">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-amber-400/10 text-amber-400 flex items-center justify-center border border-amber-400/20">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+          </div>
+          <div>
+            <h3 class="font-display text-lg font-bold text-white">Cambiar Contraseña</h3>
+            <p class="text-xs text-zinc-400">Actualiza la clave maestra de acceso al CMS</p>
+          </div>
+        </div>
+        <button onclick="closeChangePasswordModal()" class="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-800 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="changePasswordForm" onsubmit="handleChangePassword(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Contraseña Actual *</label>
+          <input type="password" id="passCurrent" required placeholder="Ingresa tu clave actual" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Nueva Contraseña *</label>
+          <input type="password" id="passNew" required minlength="4" placeholder="Mínimo 4 caracteres" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-1.5">Confirmar Nueva Contraseña *</label>
+          <input type="password" id="passConfirm" required minlength="4" placeholder="Repite la nueva clave" class="w-full px-4 py-2.5 rounded-xl bg-zinc-950 border border-zinc-800 text-white text-sm focus:border-zinc-500 focus:outline-none">
+        </div>
+
+        <p id="passError" class="text-xs text-rose-400 hidden font-medium"></p>
+
+        <div class="pt-4 flex justify-end gap-3">
+          <button type="button" onclick="closeChangePasswordModal()" class="px-5 py-2.5 rounded-xl font-medium text-xs text-zinc-400 hover:text-white bg-zinc-800 transition-colors">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-glow px-6 py-2.5 rounded-xl font-bold text-xs bg-white text-black hover:bg-zinc-200 transition-all shadow-md">
+            Guardar Contraseña
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT CMS -->
+  <script>
+    const DEFAULT_ADMIN_PASS = "contrapunto2026";
+    const KEY_ADMIN_PASS = "contrapunto_admin_password";
+    const KEY_ARTISTS = "contrapunto_artists";
+    const KEY_COVERS = "contrapunto_covers";
+    const KEY_AUTH = "contrapunto_admin_auth";
+    const KEY_TEXTS = "contrapunto_site_texts";
+
+    const DEFAULT_ARTISTS = [
+      {
+        id: 'oneteik',
+        nombre: 'Oneteik',
+        genero: 'Urban / R&B',
+        bio: 'Fusión de R&B contemporáneo y beats urbanos de producción propia. Oneteik captura la autenticidad de sus vivencias en letras directas y melodías pegajosas, con todo su proceso creativo respaldado por Contrapunto desde la grabación hasta la distribución global.',
+        spotify: 'https://open.spotify.com/playlist/1TTJuFxX4o76kgY2GiBSYs',
+        instagram: 'https://instagram.com/contrapunto.sc',
+        imagen: 'assets/artistas/artista1.jpg',
+        tag: 'Proyecto Activo',
+        year: '2025 –'
+      },
+      {
+        id: 'omar-bueno',
+        nombre: 'Omar Bueno',
+        genero: 'Pop / Balada',
+        bio: 'Vocalista y compositor de baladas pop con influencias del soul clásico venezolano. Su primer EP producido en Contrapunto alcanzó colecciones editoriales en plataformas de streaming con masterización Dolby Atmos y estrategia de posicionamiento de lanzamiento.',
+        spotify: 'https://open.spotify.com/playlist/1TTJuFxX4o76kgY2GiBSYs',
+        instagram: 'https://instagram.com/contrapunto.sc',
+        imagen: 'assets/artistas/artista2.jpg',
+        tag: 'Lanzamiento Reciente',
+        year: '2024 –'
+      }
+    ];
+
+    const DEFAULT_COVERS = [
+      {
+        id: 'cover-1',
+        titulo: 'Claroscuro EP',
+        artista: 'Oneteik',
+        year: '2025',
+        formato: 'EP Oficial',
+        imagen: 'assets/artistas/artista1.jpg'
+      },
+      {
+        id: 'cover-2',
+        titulo: 'Vuelo Interior',
+        artista: 'Omar Bueno',
+        year: '2024',
+        formato: 'Álbum',
+        imagen: 'assets/artistas/artista2.jpg'
+      },
+      {
+        id: 'cover-3',
+        titulo: 'Sesiones En Vivo Vol. 1',
+        artista: 'Contrapunto Live Sessions',
+        year: '2025',
+        formato: 'Live Session',
+        imagen: 'assets/artistas/artista1.jpg'
+      },
+      {
+        id: 'cover-4',
+        titulo: 'Frecuencias & Espacio',
+        artista: 'Omar Bueno & Oneteik',
+        year: '2025',
+        formato: 'Single',
+        imagen: 'assets/artistas/artista2.jpg'
+      }
+    ];
+
+    const DEFAULT_TEXTS = {
+      // Hero / Inicio
+      heroBadge: "Sello Musical · Estudio Boutique · Asesoría 360°",
+      heroTitle: "Donde tu visión musical encuentra calidez humana y rigor profesional.",
+      heroSubtitle: "No somos una fábrica fría de canciones ni un algoritmo automatizado. En Contrapunto caminamos hombro a hombro contigo: protegemos tu autoría, perfeccionamos tu sonido y diseñamos estrategias de lanzamiento reales para que tu música trascienda.",
+      heroStat1Number: "100%",
+      heroStat1Label: "Control de Masters & Derechos",
+      heroStat2Number: "1 a 1",
+      heroStat2Label: "Acompañamiento empático",
+      heroStat3Number: "360°",
+      heroStat3Label: "Producción, Legal & Marketing",
+
+      // Servicios & Backline
+      backlineTitle: "Alquiler de Backline & Equipos de Audio",
+      backlineBadge: "Servicio en Vivo & Eventos",
+      backlineDesc: "Equipamiento profesional de audio y amplificación para conciertos, grabaciones y eventos en vivo. Equipos probados, calibrados y listos para ofrecer un rendimiento sonoro impecable.",
+      backlinePA: "Cobertura y fidelidad acústica para eventos en vivo",
+      backlineAmps: "Opciones de referencia para guitarra eléctrica y bajo",
+      backlinePedals: "Multiefectos y modeladores de alta fidelidad para guitarra",
+      backlineMonitoring: "Sistemas inalámbricos personales de baja latencia",
+
+      // Musicoterapia
+      musicoTitle: "Musicoterapia & Proyecto Social",
+      musicoBadge: "Impacto Humano & Salud Sonora",
+      musicoDesc: "Creemos en el poder transformador de la frecuencia y el sonido para sanar, conectar comunidades y democratizar el acceso al arte.",
+      musicoPillar1Title: "Sesiones Clínicas de Musicoterapia",
+      musicoPillar1Desc: "Intervenciones guiadas por musicoterapeutas certificados para la reducción de estrés, apoyo neurológico, estimulación sensorial y regulación emocional a través de frecuencias armónicas y juego sonoro.",
+      musicoPillar1Footer: "Sesiones individuales & grupales",
+      musicoPillar2Title: "Talleres Comunitarios",
+      musicoPillar2Desc: "Programas de inmersión en escuelas, comunidades y centros culturales. Facilitamos el contacto directo con instrumentos reales, apreciación musical y creación colectiva para jóvenes y niños.",
+      musicoPillar2Footer: "Integración social y educativa",
+      musicoPillar3Title: "Fondo Pro-Bono Contrapunto",
+      musicoPillar3Desc: "Destinamos horas de estudio, mezcla y asesoría jurídica de forma 100% gratuita a talentos musicales en situación vulnerable o proyectos de rescate del patrimonio sonoro tradicional.",
+      musicoPillar3Footer: "Becas anuales de producción",
+      musicoBannerTitle: "¿Deseas consultar por sesiones clínicas o talleres para tu institución?",
+      musicoBannerDesc: "Diseñamos programas terapéuticos personalizados para fundaciones, centros de salud, empresas y particulares.",
+
+      // Contacto Corporativo
+      contactPhone: "+58 424 715 9703",
+      contactWhatsAppRaw: "584247159703",
+      contactInstagram: "https://instagram.com/contrapunto.sc",
+      contactInstagramUser: "@contrapunto.sc",
+      contactEmail: "contacto@sellocontrapunto.com"
+    };
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function getAdminPassword() {
+      return localStorage.getItem(KEY_ADMIN_PASS) || DEFAULT_ADMIN_PASS;
+    }
+
+    // Comprobación de autenticación
+    function checkAuth() {
+      const isAuth = sessionStorage.getItem(KEY_AUTH) === 'true';
+      if (isAuth) {
+        document.getElementById('authScreen').classList.add('hidden');
+        document.getElementById('dashboardScreen').classList.remove('hidden');
+        loadAll();
+      } else {
+        document.getElementById('authScreen').classList.remove('hidden');
+        document.getElementById('dashboardScreen').classList.add('hidden');
+      }
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const pass = document.getElementById('authPassword').value;
+      const err = document.getElementById('authError');
+      if (pass === getAdminPassword()) {
+        sessionStorage.setItem(KEY_AUTH, 'true');
+        err.classList.add('hidden');
+        checkAuth();
+      } else {
+        err.classList.remove('hidden');
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem(KEY_AUTH);
+      checkAuth();
+    }
+
+    // Gestión de Pestañas
+    function switchTab(tab) {
+      const secArtists = document.getElementById('sectionArtists');
+      const secCovers = document.getElementById('sectionCovers');
+      const secTexts = document.getElementById('sectionTexts');
+      const btnArtists = document.getElementById('btnTabArtists');
+      const btnCovers = document.getElementById('btnTabCovers');
+      const btnTexts = document.getElementById('btnTabTexts');
+
+      const activeClass = "px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all bg-white text-black shadow-sm flex items-center gap-2";
+      const inactiveClass = "px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all text-zinc-400 hover:text-white flex items-center gap-2";
+
+      secArtists.classList.add('hidden');
+      secCovers.classList.add('hidden');
+      secTexts.classList.add('hidden');
+      btnArtists.className = inactiveClass;
+      btnCovers.className = inactiveClass;
+      btnTexts.className = inactiveClass;
+
+      if (tab === 'artists') {
+        secArtists.classList.remove('hidden');
+        btnArtists.className = activeClass;
+      } else if (tab === 'covers') {
+        secCovers.classList.remove('hidden');
+        btnCovers.className = activeClass;
+      } else if (tab === 'texts') {
+        secTexts.classList.remove('hidden');
+        btnTexts.className = activeClass;
+        populateTextsForm();
+      }
+    }
+
+    function toast(msg) {
+      const el = document.getElementById('alertToast');
+      const txt = document.getElementById('alertToastText');
+      txt.textContent = msg;
+      el.classList.remove('hidden');
+      setTimeout(() => el.classList.add('hidden'), 5000);
+    }
+
+    // Helper preview de imagen
+    function updatePreview(previewId, val) {
+      const el = document.getElementById(previewId);
+      if (el && val.trim()) {
+        el.src = val.trim();
+      }
+    }
+
+    // Canvas image compression helper
+    function processImage(input, previewId, urlInputId) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const maxDim = 800;
+          let width = img.width;
+          let height = img.height;
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+          document.getElementById(previewId).src = dataUrl;
+          document.getElementById(urlInputId).value = dataUrl;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Data Load & Save
+    function getArtists() {
+      try {
+        const s = localStorage.getItem(KEY_ARTISTS);
+        if (s) return JSON.parse(s);
+      } catch (e) {}
+      localStorage.setItem(KEY_ARTISTS, JSON.stringify(DEFAULT_ARTISTS));
+      return DEFAULT_ARTISTS;
+    }
+
+    function getCovers() {
+      try {
+        const s = localStorage.getItem(KEY_COVERS);
+        if (s) return JSON.parse(s);
+      } catch (e) {}
+      localStorage.setItem(KEY_COVERS, JSON.stringify(DEFAULT_COVERS));
+      return DEFAULT_COVERS;
+    }
+
+    function getSiteTexts() {
+      try {
+        const s = localStorage.getItem(KEY_TEXTS);
+        if (s) return Object.assign({}, DEFAULT_TEXTS, JSON.parse(s));
+      } catch (e) {}
+      localStorage.setItem(KEY_TEXTS, JSON.stringify(DEFAULT_TEXTS));
+      return DEFAULT_TEXTS;
+    }
+
+    function loadAll() {
+      renderArtistsList();
+      renderCoversList();
+      populateTextsForm();
+    }
+
+    // ==========================================
+    // SECCIÓN ARTISTAS: Render, Guardar, Editar
+    // ==========================================
+    function renderArtistsList() {
+      const list = getArtists();
+      document.getElementById('tabCountArtists').textContent = list.length;
+      document.getElementById('lblArtistCount').textContent = list.length;
+
+      const container = document.getElementById('gridArtistsList');
+      if (list.length === 0) {
+        container.innerHTML = '<p class="text-xs text-zinc-500 py-6 text-center">No hay artistas en catálogo.</p>';
+        return;
+      }
+
+      container.innerHTML = list.map(a => `
+        <div class="flex items-center justify-between p-3.5 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-zinc-700 transition-colors">
+          <div class="flex items-center gap-3 overflow-hidden">
+            <img src="${a.imagen || 'assets/artistas/artista1.jpg'}" alt="${escapeHtml(a.nombre)}" class="w-12 h-12 rounded-xl object-cover shrink-0 border border-zinc-800" onerror="this.onerror=null; this.src='assets/artistas/artista1.jpg';">
+            <div class="truncate">
+              <p class="font-display font-bold text-sm text-white truncate">${escapeHtml(a.nombre)}</p>
+              <p class="text-xs text-zinc-400 truncate">${escapeHtml(a.genero)} &middot; <span class="text-zinc-500 font-mono">${escapeHtml(a.tag || '')}</span></p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 ml-2">
+            <button onclick="openEditArtistModal('${a.id}')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-sky-400 hover:text-white hover:bg-sky-950/50 border border-sky-900/40 transition-colors flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              <span>Editar</span>
+            </button>
+            <button onclick="removeArtist('${a.id}')" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-rose-400 hover:text-white hover:bg-rose-950/50 border border-rose-900/40 transition-colors">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function saveArtist(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('inpArtistName').value.trim();
+      const genero = document.getElementById('inpArtistGenre').value.trim();
+      const spotify = document.getElementById('inpArtistSpotify').value.trim();
+      const tag = document.getElementById('inpArtistTag').value.trim() || 'Proyecto Activo';
+      const bio = document.getElementById('inpArtistBio').value.trim();
+      const imgUrl = document.getElementById('inpArtistUrl').value.trim();
+      const imgPreview = document.getElementById('imgArtistPreview').src;
+
+      const imagen = imgUrl || imgPreview || 'assets/artistas/artista1.jpg';
+
+      const item = {
+        id: 'artist-' + Date.now(),
+        nombre,
+        genero,
+        bio,
+        spotify,
+        instagram: 'https://instagram.com/contrapunto.sc',
+        tag,
+        year: new Date().getFullYear().toString(),
+        imagen
+      };
+
+      const artists = getArtists();
+      artists.push(item);
+      localStorage.setItem(KEY_ARTISTS, JSON.stringify(artists));
+      
+      document.getElementById('artistForm').reset();
+      document.getElementById('imgArtistPreview').src = 'assets/artistas/artista1.jpg';
+      renderArtistsList();
+      toast(`¡Artista "${nombre}" guardado y publicado con éxito!`);
+    }
+
+    function removeArtist(id) {
+      if (!confirm("¿Deseas eliminar este artista del catálogo?")) return;
+      let list = getArtists().filter(a => a.id !== id);
+      localStorage.setItem(KEY_ARTISTS, JSON.stringify(list));
+      renderArtistsList();
+      toast("Artista eliminado.");
+    }
+
+    function resetArtists() {
+      if (!confirm("¿Restablecer lista de artistas por defecto?")) return;
+      localStorage.setItem(KEY_ARTISTS, JSON.stringify(DEFAULT_ARTISTS));
+      renderArtistsList();
+      toast("Artistas restablecidos.");
+    }
+
+    // Modal Edición Artista
+    function openEditArtistModal(id) {
+      const artists = getArtists();
+      const artist = artists.find(a => a.id === id);
+      if (!artist) return;
+
+      document.getElementById('editArtistId').value = artist.id;
+      document.getElementById('editArtistName').value = artist.nombre || '';
+      document.getElementById('editArtistGenre').value = artist.genero || '';
+      document.getElementById('editArtistSpotify').value = artist.spotify || '';
+      document.getElementById('editArtistTag').value = artist.tag || '';
+      document.getElementById('editArtistBio').value = artist.bio || '';
+      document.getElementById('editArtistUrl').value = artist.imagen || '';
+      document.getElementById('editArtistPreview').src = artist.imagen || 'assets/artistas/artista1.jpg';
+
+      document.getElementById('modalEditArtist').classList.remove('hidden');
+    }
+
+    function closeEditArtistModal() {
+      document.getElementById('modalEditArtist').classList.add('hidden');
+    }
+
+    function handleUpdateArtist(e) {
+      e.preventDefault();
+      const id = document.getElementById('editArtistId').value;
+      const nombre = document.getElementById('editArtistName').value.trim();
+      const genero = document.getElementById('editArtistGenre').value.trim();
+      const spotify = document.getElementById('editArtistSpotify').value.trim();
+      const tag = document.getElementById('editArtistTag').value.trim() || 'Proyecto Activo';
+      const bio = document.getElementById('editArtistBio').value.trim();
+      const imgUrl = document.getElementById('editArtistUrl').value.trim();
+      const imgPreview = document.getElementById('editArtistPreview').src;
+
+      const imagen = imgUrl || imgPreview || 'assets/artistas/artista1.jpg';
+
+      let artists = getArtists();
+      const index = artists.findIndex(a => a.id === id);
+      if (index !== -1) {
+        artists[index] = {
+          ...artists[index],
+          nombre,
+          genero,
+          spotify,
+          tag,
+          bio,
+          imagen
+        };
+        localStorage.setItem(KEY_ARTISTS, JSON.stringify(artists));
+        renderArtistsList();
+        closeEditArtistModal();
+        toast(`¡Artista "${nombre}" actualizado correctamente!`);
+      }
+    }
+
+    // ==========================================
+    // SECCIÓN PORTADAS: Render, Guardar, Editar
+    // ==========================================
+    function renderCoversList() {
+      const list = getCovers();
+      document.getElementById('tabCountCovers').textContent = list.length;
+      document.getElementById('lblCoverCount').textContent = list.length;
+
+      const container = document.getElementById('gridCoversList');
+      if (list.length === 0) {
+        container.innerHTML = '<p class="text-xs text-zinc-500 py-6 text-center col-span-2">No hay portadas en portafolio.</p>';
+        return;
+      }
+
+      container.innerHTML = list.map(c => `
+        <div class="flex items-center justify-between p-3 rounded-2xl bg-zinc-950 border border-zinc-800 hover:border-zinc-700 transition-colors">
+          <div class="flex items-center gap-3 overflow-hidden">
+            <img src="${c.imagen || 'assets/artistas/artista1.jpg'}" alt="${escapeHtml(c.titulo)}" class="w-12 h-12 rounded-xl object-cover shrink-0 border border-zinc-800" onerror="this.onerror=null; this.src='assets/artistas/artista1.jpg';">
+            <div class="overflow-hidden">
+              <p class="font-display font-bold text-sm text-white truncate">${escapeHtml(c.titulo)}</p>
+              <p class="text-xs text-zinc-400 truncate">${escapeHtml(c.artista)} &middot; <span class="text-zinc-500 font-mono">${escapeHtml(c.year)}</span></p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 ml-2">
+            <button onclick="openEditCoverModal('${c.id}')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-sky-400 hover:text-white hover:bg-sky-950/50 border border-sky-900/40 transition-colors flex items-center gap-1">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              <span>Editar</span>
+            </button>
+            <button onclick="removeCover('${c.id}')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold text-rose-400 hover:text-white hover:bg-rose-950/50 border border-rose-900/40 transition-colors">
+              Eliminar
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function saveCover(e) {
+      e.preventDefault();
+      const titulo = document.getElementById('inpCoverTitle').value.trim();
+      const artista = document.getElementById('inpCoverArtist').value.trim();
+      const year = document.getElementById('inpCoverYear').value.trim() || new Date().getFullYear().toString();
+      const formato = document.getElementById('inpCoverFormat').value.trim() || 'Álbum';
+      const imgUrl = document.getElementById('inpCoverUrl').value.trim();
+      const imgPreview = document.getElementById('imgCoverPreview').src;
+
+      const imagen = imgUrl || imgPreview || 'assets/artistas/artista1.jpg';
+
+      const item = {
+        id: 'cover-' + Date.now(),
+        titulo,
+        artista,
+        year,
+        formato,
+        imagen
+      };
+
+      const covers = getCovers();
+      covers.push(item);
+      localStorage.setItem(KEY_COVERS, JSON.stringify(covers));
+
+      document.getElementById('coverForm').reset();
+      document.getElementById('imgCoverPreview').src = 'assets/artistas/artista1.jpg';
+      document.getElementById('inpCoverYear').value = new Date().getFullYear().toString();
+      renderCoversList();
+      toast(`¡Portada "${titulo}" añadida al Portafolio Visual!`);
+    }
+
+    function removeCover(id) {
+      if (!confirm("¿Deseas eliminar esta portada del portafolio?")) return;
+      let list = getCovers().filter(c => c.id !== id);
+      localStorage.setItem(KEY_COVERS, JSON.stringify(list));
+      renderCoversList();
+      toast("Portada eliminada.");
+    }
+
+    function resetCovers() {
+      if (!confirm("¿Restablecer portadas por defecto?")) return;
+      localStorage.setItem(KEY_COVERS, JSON.stringify(DEFAULT_COVERS));
+      renderCoversList();
+      toast("Portadas restablecidas.");
+    }
+
+    // Modal Edición Portada
+    function openEditCoverModal(id) {
+      const covers = getCovers();
+      const cover = covers.find(c => c.id === id);
+      if (!cover) return;
+
+      document.getElementById('editCoverId').value = cover.id;
+      document.getElementById('editCoverTitle').value = cover.titulo || '';
+      document.getElementById('editCoverArtist').value = cover.artista || '';
+      document.getElementById('editCoverYear').value = cover.year || '';
+      document.getElementById('editCoverFormat').value = cover.formato || '';
+      document.getElementById('editCoverUrl').value = cover.imagen || '';
+      document.getElementById('editCoverPreview').src = cover.imagen || 'assets/artistas/artista1.jpg';
+
+      document.getElementById('modalEditCover').classList.remove('hidden');
+    }
+
+    function closeEditCoverModal() {
+      document.getElementById('modalEditCover').classList.add('hidden');
+    }
+
+    function handleUpdateCover(e) {
+      e.preventDefault();
+      const id = document.getElementById('editCoverId').value;
+      const titulo = document.getElementById('editCoverTitle').value.trim();
+      const artista = document.getElementById('editCoverArtist').value.trim();
+      const year = document.getElementById('editCoverYear').value.trim() || new Date().getFullYear().toString();
+      const formato = document.getElementById('editCoverFormat').value.trim() || 'Álbum';
+      const imgUrl = document.getElementById('editCoverUrl').value.trim();
+      const imgPreview = document.getElementById('editCoverPreview').src;
+
+      const imagen = imgUrl || imgPreview || 'assets/artistas/artista1.jpg';
+
+      let covers = getCovers();
+      const index = covers.findIndex(c => c.id === id);
+      if (index !== -1) {
+        covers[index] = {
+          ...covers[index],
+          titulo,
+          artista,
+          year,
+          formato,
+          imagen
+        };
+        localStorage.setItem(KEY_COVERS, JSON.stringify(covers));
+        renderCoversList();
+        closeEditCoverModal();
+        toast(`¡Portada "${titulo}" actualizada correctamente!`);
+      }
+    }
+
+    // ==========================================
+    // SECCIÓN CMS TEXTOS DINÁMICOS
+    // ==========================================
+    function populateTextsForm() {
+      const texts = getSiteTexts();
+
+      // Hero
+      document.getElementById('txtHeroBadge').value = texts.heroBadge || '';
+      document.getElementById('txtHeroTitle').value = texts.heroTitle || '';
+      document.getElementById('txtHeroSubtitle').value = texts.heroSubtitle || '';
+      document.getElementById('txtHeroStat1Num').value = texts.heroStat1Number || '';
+      document.getElementById('txtHeroStat1Label').value = texts.heroStat1Label || '';
+      document.getElementById('txtHeroStat2Num').value = texts.heroStat2Number || '';
+      document.getElementById('txtHeroStat2Label').value = texts.heroStat2Label || '';
+      document.getElementById('txtHeroStat3Num').value = texts.heroStat3Number || '';
+      document.getElementById('txtHeroStat3Label').value = texts.heroStat3Label || '';
+
+      // Backline
+      document.getElementById('txtBacklineTitle').value = texts.backlineTitle || '';
+      document.getElementById('txtBacklineBadge').value = texts.backlineBadge || '';
+      document.getElementById('txtBacklineDesc').value = texts.backlineDesc || '';
+      document.getElementById('txtBacklinePA').value = texts.backlinePA || '';
+      document.getElementById('txtBacklineAmps').value = texts.backlineAmps || '';
+      document.getElementById('txtBacklinePedals').value = texts.backlinePedals || '';
+      document.getElementById('txtBacklineMonitoring').value = texts.backlineMonitoring || '';
+
+      // Musicoterapia
+      document.getElementById('txtMusicoTitle').value = texts.musicoTitle || '';
+      document.getElementById('txtMusicoBadge').value = texts.musicoBadge || '';
+      document.getElementById('txtMusicoDesc').value = texts.musicoDesc || '';
+      document.getElementById('txtMusicoPillar1Title').value = texts.musicoPillar1Title || '';
+      document.getElementById('txtMusicoPillar1Desc').value = texts.musicoPillar1Desc || '';
+      document.getElementById('txtMusicoPillar1Footer').value = texts.musicoPillar1Footer || '';
+      document.getElementById('txtMusicoPillar2Title').value = texts.musicoPillar2Title || '';
+      document.getElementById('txtMusicoPillar2Desc').value = texts.musicoPillar2Desc || '';
+      document.getElementById('txtMusicoPillar2Footer').value = texts.musicoPillar2Footer || '';
+      document.getElementById('txtMusicoPillar3Title').value = texts.musicoPillar3Title || '';
+      document.getElementById('txtMusicoPillar3Desc').value = texts.musicoPillar3Desc || '';
+      document.getElementById('txtMusicoPillar3Footer').value = texts.musicoPillar3Footer || '';
+      document.getElementById('txtMusicoBannerTitle').value = texts.musicoBannerTitle || '';
+      document.getElementById('txtMusicoBannerDesc').value = texts.musicoBannerDesc || '';
+
+      // Contacto
+      document.getElementById('txtContactPhone').value = texts.contactPhone || '';
+      document.getElementById('txtContactWhatsAppRaw').value = texts.contactWhatsAppRaw || '';
+      document.getElementById('txtContactInstagram').value = texts.contactInstagram || '';
+      document.getElementById('txtContactInstagramUser').value = texts.contactInstagramUser || '';
+      document.getElementById('txtContactEmail').value = texts.contactEmail || '';
+    }
+
+    function saveSiteTextsFromForm() {
+      const texts = {
+        // Hero
+        heroBadge: document.getElementById('txtHeroBadge').value.trim(),
+        heroTitle: document.getElementById('txtHeroTitle').value.trim(),
+        heroSubtitle: document.getElementById('txtHeroSubtitle').value.trim(),
+        heroStat1Number: document.getElementById('txtHeroStat1Num').value.trim(),
+        heroStat1Label: document.getElementById('txtHeroStat1Label').value.trim(),
+        heroStat2Number: document.getElementById('txtHeroStat2Num').value.trim(),
+        heroStat2Label: document.getElementById('txtHeroStat2Label').value.trim(),
+        heroStat3Number: document.getElementById('txtHeroStat3Num').value.trim(),
+        heroStat3Label: document.getElementById('txtHeroStat3Label').value.trim(),
+
+        // Backline
+        backlineTitle: document.getElementById('txtBacklineTitle').value.trim(),
+        backlineBadge: document.getElementById('txtBacklineBadge').value.trim(),
+        backlineDesc: document.getElementById('txtBacklineDesc').value.trim(),
+        backlinePA: document.getElementById('txtBacklinePA').value.trim(),
+        backlineAmps: document.getElementById('txtBacklineAmps').value.trim(),
+        backlinePedals: document.getElementById('txtBacklinePedals').value.trim(),
+        backlineMonitoring: document.getElementById('txtBacklineMonitoring').value.trim(),
+
+        // Musicoterapia
+        musicoTitle: document.getElementById('txtMusicoTitle').value.trim(),
+        musicoBadge: document.getElementById('txtMusicoBadge').value.trim(),
+        musicoDesc: document.getElementById('txtMusicoDesc').value.trim(),
+        musicoPillar1Title: document.getElementById('txtMusicoPillar1Title').value.trim(),
+        musicoPillar1Desc: document.getElementById('txtMusicoPillar1Desc').value.trim(),
+        musicoPillar1Footer: document.getElementById('txtMusicoPillar1Footer').value.trim(),
+        musicoPillar2Title: document.getElementById('txtMusicoPillar2Title').value.trim(),
+        musicoPillar2Desc: document.getElementById('txtMusicoPillar2Desc').value.trim(),
+        musicoPillar2Footer: document.getElementById('txtMusicoPillar2Footer').value.trim(),
+        musicoPillar3Title: document.getElementById('txtMusicoPillar3Title').value.trim(),
+        musicoPillar3Desc: document.getElementById('txtMusicoPillar3Desc').value.trim(),
+        musicoPillar3Footer: document.getElementById('txtMusicoPillar3Footer').value.trim(),
+        musicoBannerTitle: document.getElementById('txtMusicoBannerTitle').value.trim(),
+        musicoBannerDesc: document.getElementById('txtMusicoBannerDesc').value.trim(),
+
+        // Contacto
+        contactPhone: document.getElementById('txtContactPhone').value.trim(),
+        contactWhatsAppRaw: document.getElementById('txtContactWhatsAppRaw').value.trim().replace(/\D/g, ''),
+        contactInstagram: document.getElementById('txtContactInstagram').value.trim(),
+        contactInstagramUser: document.getElementById('txtContactInstagramUser').value.trim(),
+        contactEmail: document.getElementById('txtContactEmail').value.trim()
+      };
+
+      localStorage.setItem(KEY_TEXTS, JSON.stringify(texts));
+      toast("¡Textos de la web guardados! Se actualizarán al instante en la página principal.");
+    }
+
+    function resetDefaultTexts() {
+      if (!confirm("¿Deseas restablecer todos los textos de la web a los predeterminados de fábrica?")) return;
+      localStorage.setItem(KEY_TEXTS, JSON.stringify(DEFAULT_TEXTS));
+      populateTextsForm();
+      toast("Textos restablecidos a los valores iniciales.");
+    }
+
+    // ==========================================
+    // CAMBIO DE CONTRASEÑA
+    // ==========================================
+    function openChangePasswordModal() {
+      document.getElementById('changePasswordForm').reset();
+      document.getElementById('passError').classList.add('hidden');
+      document.getElementById('modalChangePassword').classList.remove('hidden');
+      setTimeout(() => document.getElementById('passCurrent').focus(), 100);
+    }
+
+    function closeChangePasswordModal() {
+      document.getElementById('modalChangePassword').classList.add('hidden');
+    }
+
+    function handleChangePassword(e) {
+      e.preventDefault();
+      const current = document.getElementById('passCurrent').value;
+      const newPass = document.getElementById('passNew').value;
+      const confirmPass = document.getElementById('passConfirm').value;
+      const errEl = document.getElementById('passError');
+
+      if (current !== getAdminPassword()) {
+        errEl.textContent = "La contraseña actual no es correcta.";
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      if (newPass.length < 4) {
+        errEl.textContent = "La nueva contraseña debe tener al menos 4 caracteres.";
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      if (newPass !== confirmPass) {
+        errEl.textContent = "Las nuevas contraseñas no coinciden.";
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      localStorage.setItem(KEY_ADMIN_PASS, newPass);
+      errEl.classList.add('hidden');
+      closeChangePasswordModal();
+      toast("¡Contraseña de administrador actualizada con éxito!");
+    }
+
+    // Auto-chequeo al cargar
+    checkAuth();
+  </script>
+</body>
+</html>
