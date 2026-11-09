@@ -1,0 +1,25 @@
+{
+  "artistas": [
+    {
+      "nombre": "Oneteik",
+      "genero": "Rap / Urbano",
+      "bio": "Artista emergente de la escena venezolana.",
+      "imagen": "assets/artistas/oneteik.jpg"
+    }
+  ],
+  "testimonios": [
+    {
+      "artista": "Omar Bueno",
+      "rol": "Cantautor",
+      "comentario": "El trato humano y profesional en Contrapunto para mi EP fue increíble.",
+      "estrellas": 5,
+      "imagen": "assets/testimonios/omar.jpg"
+    }
+  ],
+  "faq": [
+    {
+      "pregunta": "¿Puedo contratar el Pitching Editorial si no distribuyo con Contrapunto?",
+      "respuesta": "Sí, totalmente. Nuestro servicio de pitching está abierto para cualquier artista independiente."
+    }
+  ]
+}
