@@ -39,6 +39,40 @@
       "imagen": "assets/artistas/IMG_7228.JPG"
     }
   ],
+  "faq": [
+    {
+      "id": "faq-1",
+      "pregunta": "¿Puedo contratar el Pitching Editorial si no distribuyo mi musica con Contrapunto?",
+      "respuesta": "Si, el servicio de Pitching Editorial esta disponible tanto para artistas del sello Contrapunto como para artistas que trabajan con otras distribuidoras. Lo unico que necesitamos es que tu lanzamiento este disponible en las plataformas de streaming antes de la fecha de pitch."
+    },
+    {
+      "id": "faq-2",
+      "pregunta": "¿Como funciona la proteccion de derechos de autor y propiedad intelectual?",
+      "respuesta": "En Contrapunto nos tomamos muy en serio la protección de tu música. Aunque no somos un bufete de abogados, incluimos cláusulas de propiedad intelectual sólidas en todos nuestros contratos para garantizar que siempre mantengas la titularidad absoluta de tus masters y derechos de autor. Además, te brindamos orientación estratégica basada en nuestra experiencia sobre las mejores alternativas de publicación y los pasos para el registro de tus obras: te guiamos en el proceso para entidades locales (como SACVEN) y te apoyamos de forma directa con las gestiones de registro en Estados Unidos. Te recomendamos y acompañamos por el camino correcto para que tu obra esté protegida."
+    },
+    {
+      "id": "faq-3",
+      "pregunta": "¿Que equipos incluye el servicio de alquiler de Backline y PA?",
+      "respuesta": "Nuestro servicio de alquiler abarca soluciones integrales de PA y backline para conciertos, festivales, conferencias y eventos corporativos. Contamos con sistemas de sonido versátiles que incluyen cornetas activas y pasivas, altavoces (tops + subs) y micrófonos inalámbricos, además de amplificadores de guitarra y bajo, y sistemas de monitoreo. Todo el equipamiento se entrega probado y garantizado para asegurar la máxima potencia, claridad y fidelidad en cualquier tipo de escenario o espacio."
+    },
+    {
+      "id": "faq-4",
+      "pregunta": "¿Como agendo una sesion o consulta de Musicoterapia?",
+      "respuesta": "Puedes contactarnos directamente por WhatsApp o correo electronico para coordinar una consulta inicial sin costo. En esa reunion evaluamos tus necesidades (clinicas, educativas o comunitarias) y disenamos un programa de sesiones personalizado. Tambien atendemos solicitudes de talleres para instituciones, empresas y fundaciones."
+    }
+  ],
+  "playlists": [
+    {
+      "title": "Rap Venezolano: la Nueva Escuela",
+      "genre": "Rap",
+      "url": "https://open.spotify.com/playlist/1FCTomsMENNgJi06lKCsx6?si=7994b941ad244952"
+    },
+    {
+      "genre": "Vallenato",
+      "title": "Vallenato para Enamorar y Dedicar",
+      "url": "https://open.spotify.com/playlist/1tQwUJmkbxNMvmQTWnipk?si=3b5b291924624756"
+    }
+  ],
   "portadas": [
     {
       "id": "cover-1794254198583",
@@ -74,63 +108,41 @@
     }
   ],
   "testimonios": [],
-  "faq": [
-    {
-      "id": "faq-1",
-      "pregunta": "¿Puedo contratar el Pitching Editorial si no distribuyo mi musica con Contrapunto?",
-      "respuesta": "Si, el servicio de Pitching Editorial esta disponible tanto para artistas del sello Contrapunto como para artistas que trabajan con otras distribuidoras. Lo unico que necesitamos es que tu lanzamiento este disponible en las plataformas de streaming antes de la fecha de pitch."
-    },
-    {
-      "id": "faq-2",
-      "pregunta": "¿Como funciona la proteccion de derechos de autor y propiedad intelectual?",
-      "respuesta": "En Contrapunto nos tomamos muy en serio la protección de tu música. Aunque no somos un bufete de abogados, incluimos cláusulas de propiedad intelectual sólidas en todos nuestros contratos para garantizar que siempre mantengas la titularidad absoluta de tus masters y derechos de autor. Además, te brindamos orientación estratégica basada en nuestra experiencia sobre las mejores alternativas de publicación y los pasos para el registro de tus obras: te guiamos en el proceso para entidades locales (como SACVEN) y te apoyamos de forma directa con las gestiones de registro en Estados Unidos. Te recomendamos y acompañamos por el camino correcto para que tu obra esté protegida."
-    },
-    {
-      "id": "faq-3",
-      "pregunta": "¿Que equipos incluye el servicio de alquiler de Backline y PA?",
-      "respuesta": "Nuestro servicio de alquiler abarca soluciones integrales de PA y backline para conciertos, festivales, conferencias y eventos corporativos. Contamos con sistemas de sonido versátiles que incluyen cornetas activas y pasivas, altavoces (tops + subs) y micrófonos inalámbricos, además de amplificadores de guitarra y bajo, y sistemas de monitoreo. Todo el equipamiento se entrega probado y garantizado para asegurar la máxima potencia, claridad y fidelidad en cualquier tipo de escenario o espacio."
-    },
-    {
-      "id": "faq-4",
-      "pregunta": "¿Como agendo una sesion o consulta de Musicoterapia?",
-      "respuesta": "Puedes contactarnos directamente por WhatsApp o correo electronico para coordinar una consulta inicial sin costo. En esa reunion evaluamos tus necesidades (clinicas, educativas o comunitarias) y disenamos un programa de sesiones personalizado. Tambien atendemos solicitudes de talleres para instituciones, empresas y fundaciones."
-    }
-  ],
   "textos": {
-    "heroBadge": "Sello Discográfico · Gochos · Industria Real",
-    "heroTitle": "Construyendo la industria musical desde San Cristóbal: proyectos reales, sostenibles y tuyos.",
-    "heroSubtitle": "Nacimos en el corazón entre Bogotá y Caracas para cambiar las reglas. Sabemos que la música es costosa; por eso creamos proyectos 100% sostenibles que protegen tu inversión y tu tiempo. Cuidamos tu obra como si fuera nuestra, dándole la honra que merece sin quitarte jamás el control de tus creaciones.",
-    "heroStat1Number": "100%",
-    "heroStat1Label": "Sostenibilidad & Tu Control",
-    "heroStat2Number": "Eje",
-    "heroStat2Label": "San Cristóbal (Bogotá - Caracas)",
-    "heroStat3Number": "360°",
-    "heroStat3Label": "Producción, Legal & Marketing",
-    "backlineTitle": "Alquiler de Backline & Equipos de Audio",
+    "backlineAmps": "Configuraciones de backline flexibles y adaptadas al rider técnico específico de tu presentación.",
     "backlineBadge": "Servicio en Vivo & Eventos",
     "backlineDesc": "Soluciones de audio y backline gestionadas a la medida de tu proyecto. Nos adaptamos al requerimiento técnico de cada artista o evento mediante consulta previa, garantizando un rendimiento impecable en vivo.",
-    "backlinePA": "Cobertura y presión acústica escalable para conciertos, festivales y eventos corporativos o conferencias.",
-    "backlineAmps": "Configuraciones de backline flexibles y adaptadas al rider técnico específico de tu presentación.",
-    "backlinePedals": "Opciones de procesamiento y modelado de audio según las necesidades del músico.",
     "backlineMonitoring": "Sistemas de escucha personal y monitoreo ajustados a la escala del show.",
-    "musicoTitle": "Musicoterapia, Educación Musical & Proyecto Social",
-    "musicoBadge": "Impacto Humano, Formación & Arte",
-    "musicoDesc": "Creemos en el poder transformador de la frecuencia para sanar, y en la educación musical como el motor principal para conectar comunidades y formar a las nuevas generaciones.",
-    "musicoPillar1Title": "Sesiones de Musicoterapia",
-    "musicoPillar1Desc": "Intervenciones guiadas para la reducción de estrés, estimulación sensorial y regulación emocional a través de frecuencias armónicas y espacios seguros.",
-    "musicoPillar1Footer": "Sesiones individuales & grupales",
-    "musicoPillar2Title": "Clases de Música & Talleres Infantiles",
-    "musicoPillar2Desc": "Programas de formación e iniciación musical adaptados para niños y jóvenes. Facilitamos el contacto con instrumentos reales, apreciación sonora y desarrollo artístico.",
-    "musicoPillar2Footer": "Integración social y educativa",
-    "musicoPillar3Title": "Fondo Pro-Bono Contrapunto",
-    "musicoPillar3Desc": "Destinamos horas de estudio, mezcla y orientación sobre contratos y derechos de autor de forma 100% gratuita a talentos musicales en situación vulnerable o proyectos de rescate patrimonial.",
-    "musicoPillar3Footer": "Becas anuales de producción",
-    "musicoBannerTitle": "¿Deseas consultar por sesiones clínicas o talleres para tu institución?",
-    "musicoBannerDesc": "Diseñamos programas terapéuticos personalizados para fundaciones, centros de salud, empresas y particulares.",
-    "contactPhone": "+58 424 715 9703",
-    "contactWhatsAppRaw": "584247159703",
+    "backlinePA": "Cobertura y presión acústica escalable para conciertos, festivales y eventos corporativos o conferencias.",
+    "backlinePedals": "Opciones de procesamiento y modelado de audio según las necesidades del músico.",
+    "backlineTitle": "Alquiler de Backline & Equipos de Audio",
+    "contactEmail": "contacto@sellocontrapunto.com",
     "contactInstagram": "https://instagram.com/contrapunto.sc",
     "contactInstagramUser": "@contrapunto.sc",
-    "contactEmail": "contacto@sellocontrapunto.com"
+    "contactPhone": "+58 424 715 9703",
+    "contactWhatsAppRaw": "584247159703",
+    "heroBadge": "Sello Discográfico · Gochos · Industria Real",
+    "heroStat1Label": "Sostenibilidad & Tu Control",
+    "heroStat1Number": "100%",
+    "heroStat2Label": "San Cristóbal (Bogotá - Caracas)",
+    "heroStat2Number": "Eje",
+    "heroStat3Label": "Producción, Legal & Marketing",
+    "heroStat3Number": "360°",
+    "heroSubtitle": "Nacimos en el corazón entre Bogotá y Caracas para cambiar las reglas. Sabemos que la música es costosa; por eso creamos proyectos 100% sostenibles que protegen tu inversión y tu tiempo. Cuidamos tu obra como si fuera nuestra, dándole la honra que merece sin quitarte jamás el control de tus creaciones.",
+    "heroTitle": "Construyendo la industria musical desde San Cristóbal: proyectos reales, sostenibles y tuyos.",
+    "musicoBadge": "Impacto Humano, Formación & Arte",
+    "musicoBannerDesc": "Diseñamos programas terapéuticos personalizados para fundaciones, centros de salud, empresas y particulares.",
+    "musicoBannerTitle": "¿Deseas consultar por sesiones clínicas o talleres para tu institución?",
+    "musicoDesc": "Creemos en el poder transformador de la frecuencia para sanar, y en la educación musical como el motor principal para conectar comunidades y formar a las nuevas generaciones.",
+    "musicoPillar1Desc": "Intervenciones guiadas para la reducción de estrés, estimulación sensorial y regulación emocional a través de frecuencias armónicas y espacios seguros.",
+    "musicoPillar1Footer": "Sesiones individuales & grupales",
+    "musicoPillar1Title": "Sesiones de Musicoterapia",
+    "musicoPillar2Desc": "Programas de formación e iniciación musical adaptados para niños y jóvenes. Facilitamos el contacto con instrumentos reales, apreciación sonora y desarrollo artístico.",
+    "musicoPillar2Footer": "Integración social y educativa",
+    "musicoPillar2Title": "Clases de Música & Talleres Infantiles",
+    "musicoPillar3Desc": "Destinamos horas de estudio, mezcla y orientación sobre contratos y derechos de autor de forma 100% gratuita a talentos musicales en situación vulnerable o proyectos de rescate patrimonial.",
+    "musicoPillar3Footer": "Becas anuales de producción",
+    "musicoPillar3Title": "Fondo Pro-Bono Contrapunto",
+    "musicoTitle": "Musicoterapia, Educación Musical & Proyecto Social"
   }
 }
