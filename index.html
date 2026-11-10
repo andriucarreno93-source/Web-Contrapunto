@@ -2414,6 +2414,11 @@
       musicoBannerTitle: "¿Deseas consultar por sesiones clínicas o talleres para tu institución?",
       musicoBannerDesc: "Diseñamos programas terapéuticos personalizados para fundaciones, centros de salud, empresas y particulares.",
 
+      // Pitching Editorial
+      pitchingBadge: "Pitching Editorial",
+      pitchingTitle: "Pitching Editorial a Playlists Oficiales",
+      pitchingDesc: "Lleva tu música a las playlists editoriales oficiales. Te ayudamos a presentar tu lanzamiento directamente a los curadores de Spotify, Apple Music y más. Disponible tanto si distribuyes con Contrapunto como si trabajas con otra distribuidora externa. Pasa de un par de reproducciones a escalar tu audiencia global.",
+
       // Contacto Corporativo
       contactPhone: "+58 424 715 9703",
       contactWhatsAppRaw: "584247159703",
@@ -2441,7 +2446,6 @@
       } catch (e) {
         console.error("Error leyendo artistas de localStorage", e);
       }
-      localStorage.setItem(STORAGE_KEY_ARTISTS, JSON.stringify(DEFAULT_ARTISTS));
       return DEFAULT_ARTISTS;
     }
 
@@ -2458,7 +2462,6 @@
       } catch (e) {
         console.error("Error leyendo portadas de localStorage", e);
       }
-      localStorage.setItem(STORAGE_KEY_COVERS, JSON.stringify(DEFAULT_COVERS));
       return DEFAULT_COVERS;
     }
 
@@ -2475,13 +2478,12 @@
       } catch (e) {
         console.error("Error leyendo textos de localStorage", e);
       }
-      localStorage.setItem(STORAGE_KEY_TEXTS, JSON.stringify(DEFAULT_TEXTS));
       return DEFAULT_TEXTS;
     }
 
     // Aplicar textos dinámicos a la web principal
-    function applySiteTexts() {
-      const texts = getSiteTexts();
+    function applySiteTexts(overrideTexts) {
+      const texts = overrideTexts ? Object.assign({}, DEFAULT_TEXTS, overrideTexts) : getSiteTexts();
 
       // 1. Hero / Inicio
       const elHeroBadge = document.getElementById('heroBadgeText');
@@ -2609,14 +2611,24 @@
 
       const elEmailLink = document.getElementById('contactEmailLink');
       if (elEmailLink && texts.contactEmail) elEmailLink.setAttribute('href', `mailto:${texts.contactEmail}`);
+
+      // 5. Pitching Editorial
+      const elPitchingBadge = document.getElementById('pitchingBadge');
+      if (elPitchingBadge && texts.pitchingBadge) elPitchingBadge.textContent = texts.pitchingBadge;
+
+      const elPitchingTitle = document.getElementById('pitchingTitle');
+      if (elPitchingTitle && texts.pitchingTitle) elPitchingTitle.textContent = texts.pitchingTitle;
+
+      const elPitchingDesc = document.getElementById('pitchingDesc');
+      if (elPitchingDesc && texts.pitchingDesc) elPitchingDesc.textContent = texts.pitchingDesc;
     }
 
     // Render de Artistas en la web principal
-    function renderArtists() {
+    function renderArtists(items) {
       const container = document.getElementById('artistsGrid');
       if (!container) return;
 
-      const artists = getStoredArtists();
+      const artists = (Array.isArray(items) && items.length > 0) ? items : getStoredArtists();
       container.innerHTML = artists.map(artist => `
         <article class="group relative rounded-3xl bg-zinc-900 border border-zinc-800 hover:border-zinc-600 overflow-hidden flex flex-col shadow-xl transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
           <div class="relative w-full h-60 bg-zinc-950 overflow-hidden">
@@ -2674,11 +2686,11 @@
     }
 
     // Render de Portadas de Disco en Portafolio Visual
-    function renderCovers() {
+    function renderCovers(items) {
       const container = document.getElementById('portfolioCoversGrid');
       if (!container) return;
 
-      const covers = getStoredCovers();
+      const covers = (Array.isArray(items) && items.length > 0) ? items : getStoredCovers();
       container.innerHTML = covers.map(cover => `
         <div class="group relative rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-500 overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-1.5 flex flex-col">
           <div class="relative w-full aspect-square bg-zinc-950 overflow-hidden">
@@ -3327,8 +3339,8 @@
       renderCmsTestimonios();
     }
 
-    function renderTestimonios() {
-      const list = getStoredTestimonios();
+    function renderTestimonios(items) {
+      const list = (Array.isArray(items) && items.length > 0) ? items : getStoredTestimonios();
       const container = document.getElementById('testimoniosGrid');
       if (!container) return;
       if (!list || list.length === 0) {
@@ -3452,8 +3464,8 @@
       renderCmsFaq();
     }
 
-    function renderFaq() {
-      const list = getStoredFaq();
+    function renderFaq(items) {
+      const list = (Array.isArray(items) && items.length > 0) ? items : getStoredFaq();
       const container = document.getElementById('faqContainer');
       if (!container) return;
       if (!list || list.length === 0) {
@@ -3550,56 +3562,71 @@
       showCmsAlert('¡Pregunta FAQ actualizada!');
     }
 
-    // Inicializar renders y textos al cargar la página
-    // Prioridad: 1) localStorage (ediciones admin), 2) data.json (fuente maestra), 3) DEFAULT_* (fallback)
-    document.addEventListener('DOMContentLoaded', () => {
-      applySiteTexts();
-
-      // Intentar cargar data.json como fuente base; localStorage sobreescribe si tiene datos
-      fetch('data.json')
-        .then(r => r.ok ? r.json() : Promise.reject('No data.json'))
-        .then(data => {
-          // Artistas: usar localStorage si existe, si no usar data.json
-          if (!localStorage.getItem(STORAGE_KEY_ARTISTS) && data.artistas) {
-            localStorage.setItem(STORAGE_KEY_ARTISTS, JSON.stringify(data.artistas));
-          }
-          // Portadas
-          if (!localStorage.getItem(STORAGE_KEY_COVERS) && data.portadas) {
-            localStorage.setItem(STORAGE_KEY_COVERS, JSON.stringify(data.portadas));
-          }
-          // Testimonios
-          if (!localStorage.getItem(STORAGE_KEY_TESTIMONIOS) && data.testimonios) {
-            localStorage.setItem(STORAGE_KEY_TESTIMONIOS, JSON.stringify(data.testimonios));
-          }
-          // FAQ
-          if (!localStorage.getItem(STORAGE_KEY_FAQ) && data.faq) {
-            localStorage.setItem(STORAGE_KEY_FAQ, JSON.stringify(data.faq));
-          }
-          // Textos del sitio
-          if (!localStorage.getItem(STORAGE_KEY_TEXTS) && data.textos) {
-            localStorage.setItem(STORAGE_KEY_TEXTS, JSON.stringify(data.textos));
-            applySiteTexts();
-          }
-        })
-        .catch(() => { /* Sin data.json, se usan DEFAULT_* normalmente */ })
-        .finally(() => {
-          renderArtists();
-          renderCovers();
-          renderTestimonios();
-          renderFaq();
-          // Re-observar nuevos elementos reveal-on-scroll
-          document.querySelectorAll('.reveal-on-scroll:not(.observed)').forEach(el => {
-            el.classList.add('observed');
-            revealObserver.observe(el);
-          });
+    // =========================================================================
+    // CARGA DE DATOS DINÁMICOS (fetch data.json como fuente principal)
+    // =========================================================================
+    function initRevealObserver() {
+      if (typeof revealObserver !== 'undefined' && revealObserver) {
+        document.querySelectorAll('.reveal-on-scroll:not(.revealed)').forEach(el => {
+          revealObserver.observe(el);
         });
-    });
+      }
+    }
 
-    // Fallback sincrónico (antes del DOMContentLoaded)
-    renderArtists();
-    renderCovers();
-    renderTestimonios();
-    renderFaq();
+    async function loadSiteData() {
+      // 1. Render inicial inmediato para evitar pantallas en blanco (usa localStorage o defaults)
+      applySiteTexts();
+      renderArtists();
+      renderCovers();
+      renderTestimonios();
+      renderFaq();
+      initRevealObserver();
+
+      // 2. Fetch de data.json para obtener la fuente maestra y pintar el DOM automáticamente
+      try {
+        const response = await fetch('data.json?v=' + Date.now(), { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error('HTTP ' + response.status);
+        }
+        const data = await response.json();
+        if (data && typeof data === 'object') {
+          // Pintar Artistas dinámicamente en el DOM
+          if (Array.isArray(data.artistas)) {
+            renderArtists(data.artistas);
+            try { localStorage.setItem(STORAGE_KEY_ARTISTS, JSON.stringify(data.artistas)); } catch(e){}
+          }
+
+          // Pintar Portadas de disco en el DOM
+          if (Array.isArray(data.portadas)) {
+            renderCovers(data.portadas);
+            try { localStorage.setItem(STORAGE_KEY_COVERS, JSON.stringify(data.portadas)); } catch(e){}
+          }
+
+          // Pintar Testimonios en el DOM
+          if (Array.isArray(data.testimonios)) {
+            renderTestimonios(data.testimonios);
+            try { localStorage.setItem(STORAGE_KEY_TESTIMONIOS, JSON.stringify(data.testimonios)); } catch(e){}
+          }
+
+          // Pintar Preguntas Frecuentes (FAQ) en el DOM
+          if (Array.isArray(data.faq)) {
+            renderFaq(data.faq);
+            try { localStorage.setItem(STORAGE_KEY_FAQ, JSON.stringify(data.faq)); } catch(e){}
+          }
+
+          // Pintar Textos de la Web si están provistos en data.json
+          if (data.textos && typeof data.textos === 'object') {
+            applySiteTexts(data.textos);
+            try { localStorage.setItem(STORAGE_KEY_TEXTS, JSON.stringify(data.textos)); } catch(e){}
+          }
+
+          initRevealObserver();
+          console.log("✅ [Contrapunto] data.json cargado exitosamente. Datos sincronizados en pantalla.");
+        }
+      } catch (err) {
+        console.warn("ℹ️ [Contrapunto] fetch('data.json') no disponible, ejecutando con respaldo local:", err.message || err);
+      }
+    }
 
     // Form Handling with Formspree (AJAX submission)
     async function handleFormSubmit(e) {
@@ -3699,6 +3726,13 @@
     document.querySelectorAll('.reveal-on-scroll').forEach(el => {
       revealObserver.observe(el);
     });
+
+    // Iniciar carga y sincronización de datos con data.json
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadSiteData);
+    } else {
+      loadSiteData();
+    }
   </script>
 
   <!-- Modal: Editar Testimonio -->
