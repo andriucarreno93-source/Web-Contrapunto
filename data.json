@@ -144,17 +144,5 @@
     "musicoPillar3Footer": "Becas anuales de producción",
     "musicoPillar3Title": "Fondo Pro-Bono Contrapunto",
    "musicoTitle": "Musicoterapia, Educación Musical & Proyecto Social"
-  },
-  "playlists": [
-    {
-      "title": "Rap Venezolano: la Nueva Escuela",
-      "genre": "Rap",
-      "url": "https://open.spotify.com/playlist/1FCTomsMENNgJi06lKCsx6?si=7994b941ad244952"
-    },
-    {
-      "genre": "Vallenato",
-      "title": "Vallenato para Enamorar y Dedicar",
-      "url": "https://open.spotify.com/playlist/1tQwUJmkbxNMvmQTWnipk?si=3b5b291924624756"
-    }
-  ]
+  }
 }
