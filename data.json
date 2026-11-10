@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "exportado": "2026-11-10T00:21:54.932Z",
+    "exportado": "2026-11-10T00:26:38.939Z",
     "version": "1.0",
     "descripcion": "Fuente maestra de datos para Contrapunto web. Coloca este archivo en la raíz del proyecto junto a index.html."
   },
@@ -44,6 +44,14 @@
       "year": "2026",
       "formato": "Single",
       "imagen": "assets/portadas/Chu Chu Wua.png"
+    },
+    {
+      "id": "cover-1794270350548",
+      "titulo": "Anna Betty",
+      "artista": "John Alvarez",
+      "year": "2026",
+      "formato": "Single",
+      "imagen": "assets/portadas/Anna Betty.png"
     }
   ],
   "testimonios": [
