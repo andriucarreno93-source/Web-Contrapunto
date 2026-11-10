@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "exportado": "2026-11-10T00:26:38.939Z",
+    "exportado": "2026-11-10T01:23:30.662Z",
     "version": "1.0",
     "descripcion": "Fuente maestra de datos para Contrapunto web. Coloca este archivo en la raíz del proyecto junto a index.html."
   },
@@ -26,6 +26,17 @@
       "imagen": "assets/artistas/artista2.jpg",
       "tag": "Lanzamiento Reciente",
       "year": "2024 –"
+    },
+    {
+      "id": "artist-1794272910310",
+      "nombre": "John Alvarez la Voz",
+      "genero": "Latin Romantico",
+      "bio": "Cantautor  cuyas obras se distinguen por su estilo romántico, metafórico y poético, de narrar historias,  su inspiración surge del amor, la familia, vivencias, experiencias, transmitir emociones que son elementos          centrales en sus composiciones.",
+      "spotify": "https://open.spotify.com/intl-es/artist/1myfoeNVfADB8p0KyG2s30?si=XvJAWNC7TpGlgO-TKvHPpw",
+      "instagram": "https://instagram.com/contrapunto.sc",
+      "tag": "Proyecto Activo",
+      "year": "2026",
+      "imagen": "assets/artistas/IMG_7228.JPG"
     }
   ],
   "portadas": [
@@ -52,34 +63,17 @@
       "year": "2026",
       "formato": "Single",
       "imagen": "assets/portadas/Anna Betty.png"
-    }
-  ],
-  "testimonios": [
-    {
-      "id": "test-1",
-      "nombre": "Oneteik",
-      "rol": "Urban R&B / EP Claroscuro 2025",
-      "texto": "Trabajar con Contrapunto fue transformador. No solo cuidaron cada detalle sonoro de mi EP, sino que me acompanaron como personas en todo el proceso. El trato humano y su vision artistica me dieron la confianza que necesitaba para lanzarme al mundo.",
-      "estrellas": 5,
-      "foto": "assets/testimonios/oneteik.jpg"
     },
     {
-      "id": "test-2",
-      "nombre": "Omar Bueno",
-      "rol": "Pop / Balada - Album Vuelo Interior",
-      "texto": "Desde la primera reunion supe que estaba en las manos correctas. Mi album logro entrar en playlists editoriales de Spotify gracias al pitching que coordinaron. Profesionales de verdad con corazon de artista.",
-      "estrellas": 5,
-      "foto": "assets/testimonios/omar.jpg"
-    },
-    {
-      "id": "test-3",
-      "nombre": "Artista Contrapunto",
-      "rol": "Proyecto en Desarrollo",
-      "texto": "El proceso de grabacion y la asesoria en derechos de autor fue impecable. Siento que mis masters estan bien protegidos y mi musica suena exactamente como la imagine. Recomiendo Contrapunto a cualquier artista independiente.",
-      "estrellas": 5,
-      "foto": "assets/testimonios/artista3.jpg"
+      "id": "cover-1794272430630",
+      "titulo": "Asuntos Pendientes",
+      "artista": "Omar Bueno",
+      "year": "2026",
+      "formato": "EP",
+      "imagen": "assets/portadas/asuntos pendientes.png"
     }
   ],
+  "testimonios": [],
   "faq": [
     {
       "id": "faq-1",
@@ -89,12 +83,12 @@
     {
       "id": "faq-2",
       "pregunta": "¿Como funciona la proteccion de derechos de autor y propiedad intelectual?",
-      "respuesta": "En Contrapunto asesoramos legalmente a cada artista para el registro de sus obras ante las sociedades de gestion colectiva (SACVEN u otras). Tambien incluimos clausulas de propiedad intelectual en todos nuestros contratos, garantizando que el artista mantenga la titularidad de sus masters y derechos de autor."
+      "respuesta": "En Contrapunto nos tomamos muy en serio la protección de tu música. Aunque no somos un bufete de abogados, incluimos cláusulas de propiedad intelectual sólidas en todos nuestros contratos para garantizar que siempre mantengas la titularidad absoluta de tus masters y derechos de autor. Además, te brindamos orientación estratégica basada en nuestra experiencia sobre las mejores alternativas de publicación y los pasos para el registro de tus obras: te guiamos en el proceso para entidades locales (como SACVEN) y te apoyamos de forma directa con las gestiones de registro en Estados Unidos. Te recomendamos y acompañamos por el camino correcto para que tu obra esté protegida."
     },
     {
       "id": "faq-3",
       "pregunta": "¿Que equipos incluye el servicio de alquiler de Backline y PA?",
-      "respuesta": "Nuestro servicio de backline incluye sistemas de PA profesional (Line arrays y tops + subs), amplificadores de guitarra electrica y bajo (Marshall, Fender, Ampeg), sistemas de monitoreo in-ear inalambrico (Sennheiser, Shure), procesadores multiefectos y pedaleras de referencia. Todos los equipos se entregan probados, calibrados y con soporte tecnico en sitio."
+      "respuesta": "Nuestro servicio de alquiler abarca soluciones integrales de PA y backline para conciertos, festivales, conferencias y eventos corporativos. Contamos con sistemas de sonido versátiles que incluyen cornetas activas y pasivas, altavoces (tops + subs) y micrófonos inalámbricos, además de amplificadores de guitarra y bajo, y sistemas de monitoreo. Todo el equipamiento se entrega probado y garantizado para asegurar la máxima potencia, claridad y fidelidad en cualquier tipo de escenario o espacio."
     },
     {
       "id": "faq-4",
@@ -103,33 +97,33 @@
     }
   ],
   "textos": {
-    "heroBadge": "Sello Musical · Estudio Boutique · Asesoría 360°",
-    "heroTitle": "Donde tu visión musical encuentra calidez humana y rigor profesional.",
-    "heroSubtitle": "No somos una fábrica fría de canciones ni un algoritmo automatizado. En Contrapunto caminamos hombro a hombro contigo: protegemos tu autoría, perfeccionamos tu sonido y diseñamos estrategias de lanzamiento reales para que tu música trascienda.",
+    "heroBadge": "Sello Discográfico · Gochos · Industria Real",
+    "heroTitle": "Construyendo la industria musical desde San Cristóbal: proyectos reales, sostenibles y tuyos.",
+    "heroSubtitle": "Nacimos en el corazón entre Bogotá y Caracas para cambiar las reglas. Sabemos que la música es costosa; por eso creamos proyectos 100% sostenibles que protegen tu inversión y tu tiempo. Cuidamos tu obra como si fuera nuestra, dándole la honra que merece sin quitarte jamás el control de tus creaciones.",
     "heroStat1Number": "100%",
-    "heroStat1Label": "Control de Masters & Derechos",
-    "heroStat2Number": "1 a 1",
-    "heroStat2Label": "Acompañamiento empático",
+    "heroStat1Label": "Sostenibilidad & Tu Control",
+    "heroStat2Number": "Eje",
+    "heroStat2Label": "San Cristóbal (Bogotá - Caracas)",
     "heroStat3Number": "360°",
     "heroStat3Label": "Producción, Legal & Marketing",
     "backlineTitle": "Alquiler de Backline & Equipos de Audio",
     "backlineBadge": "Servicio en Vivo & Eventos",
-    "backlineDesc": "Equipamiento profesional de audio y amplificación para conciertos, grabaciones y eventos en vivo. Equipos probados, calibrados y listos para ofrecer un rendimiento sonoro impecable.",
-    "backlinePA": "Cobertura y fidelidad acústica para eventos en vivo",
-    "backlineAmps": "Opciones de referencia para guitarra eléctrica y bajo",
-    "backlinePedals": "Multiefectos y modeladores de alta fidelidad para guitarra",
-    "backlineMonitoring": "Sistemas inalámbricos personales de baja latencia",
-    "musicoTitle": "Musicoterapia & Proyecto Social",
-    "musicoBadge": "Impacto Humano & Salud Sonora",
-    "musicoDesc": "Creemos en el poder transformador de la frecuencia y el sonido para sanar, conectar comunidades y democratizar el acceso al arte.",
-    "musicoPillar1Title": "Sesiones Clínicas de Musicoterapia",
-    "musicoPillar1Desc": "Intervenciones guiadas por musicoterapeutas certificados para la reducción de estrés, apoyo neurológico, estimulación sensorial y regulación emocional a través de frecuencias armónicas y juego sonoro.",
+    "backlineDesc": "Soluciones de audio y backline gestionadas a la medida de tu proyecto. Nos adaptamos al requerimiento técnico de cada artista o evento mediante consulta previa, garantizando un rendimiento impecable en vivo.",
+    "backlinePA": "Cobertura y presión acústica escalable para conciertos, festivales y eventos corporativos o conferencias.",
+    "backlineAmps": "Configuraciones de backline flexibles y adaptadas al rider técnico específico de tu presentación.",
+    "backlinePedals": "Opciones de procesamiento y modelado de audio según las necesidades del músico.",
+    "backlineMonitoring": "Sistemas de escucha personal y monitoreo ajustados a la escala del show.",
+    "musicoTitle": "Musicoterapia, Educación Musical & Proyecto Social",
+    "musicoBadge": "Impacto Humano, Formación & Arte",
+    "musicoDesc": "Creemos en el poder transformador de la frecuencia para sanar, y en la educación musical como el motor principal para conectar comunidades y formar a las nuevas generaciones.",
+    "musicoPillar1Title": "Sesiones de Musicoterapia",
+    "musicoPillar1Desc": "Intervenciones guiadas para la reducción de estrés, estimulación sensorial y regulación emocional a través de frecuencias armónicas y espacios seguros.",
     "musicoPillar1Footer": "Sesiones individuales & grupales",
-    "musicoPillar2Title": "Talleres Comunitarios",
-    "musicoPillar2Desc": "Programas de inmersión en escuelas, comunidades y centros culturales. Facilitamos el contacto directo con instrumentos reales, apreciación musical y creación colectiva para jóvenes y niños.",
+    "musicoPillar2Title": "Clases de Música & Talleres Infantiles",
+    "musicoPillar2Desc": "Programas de formación e iniciación musical adaptados para niños y jóvenes. Facilitamos el contacto con instrumentos reales, apreciación sonora y desarrollo artístico.",
     "musicoPillar2Footer": "Integración social y educativa",
     "musicoPillar3Title": "Fondo Pro-Bono Contrapunto",
-    "musicoPillar3Desc": "Destinamos horas de estudio, mezcla y asesoría jurídica de forma 100% gratuita a talentos musicales en situación vulnerable o proyectos de rescate del patrimonio sonoro tradicional.",
+    "musicoPillar3Desc": "Destinamos horas de estudio, mezcla y orientación sobre contratos y derechos de autor de forma 100% gratuita a talentos musicales en situación vulnerable o proyectos de rescate patrimonial.",
     "musicoPillar3Footer": "Becas anuales de producción",
     "musicoBannerTitle": "¿Deseas consultar por sesiones clínicas o talleres para tu institución?",
     "musicoBannerDesc": "Diseñamos programas terapéuticos personalizados para fundaciones, centros de salud, empresas y particulares.",
